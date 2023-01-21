@@ -1,4 +1,5 @@
 import express from "express";
+import taskRouter from "./tasks";
 
 import MessageResponse from "../interfaces/responses/MessageResponse";
 
@@ -9,5 +10,7 @@ router.get<{}, MessageResponse>("/", (_, res) => {
         message: "Hello Hello"
     });
 });
+
+router.use("/tasks", taskRouter);
 
 export default router;
