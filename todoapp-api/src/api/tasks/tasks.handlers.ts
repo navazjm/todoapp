@@ -92,7 +92,7 @@ export async function deleteOneByID(req: Request, res: Response<MessageResponse>
         });
 
         res.status(200).json({
-            message: `task ${numId} was deleted successfully`
+            message: `task ${task.id} was deleted successfully`
         });
     } catch (err) {
         next(err);
