@@ -9,7 +9,11 @@
         "build": "tsc",
         "lint": "eslint --fix src test",
         "test": "jest",
-        "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+        "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+        "seed": "npx prisma db seed"
+    },
+    "prisma": {
+        "seed": "ts-node prisma/seed.ts"
     },
     "keywords": [],
     "author": "Michael Navarro",
