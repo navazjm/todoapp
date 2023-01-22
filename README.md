@@ -12,7 +12,7 @@
 
 ## About Todo App
 
-Used this project to learn the basics of NodeJs, Express with TypeScript, and Prisma.
+Used this project to learn the basics of NodeJS, Express with TypeScript, and Prisma.
 
 ## Run Project Locally
 
