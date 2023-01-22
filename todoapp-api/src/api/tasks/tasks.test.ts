@@ -57,6 +57,8 @@ describe("POST /v1/tasks", () => {
                 expect(response.body.task.isDone).toBe(false);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
+                expect(response.body).toHaveProperty("message");
+                expect(response.body.message).toBe(`task ${id} was created successfully`);
             }));
 });
 
@@ -77,6 +79,8 @@ describe("GET /v1/tasks/:id", () => {
                 expect(response.body.task.isDone).toBe(false);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
+                expect(response.body).toHaveProperty("message");
+                expect(response.body.message).toBe(`task ${id} was found`);
             }));
     it("responds with an task ID not found error", (done) => {
         request(app)
@@ -132,6 +136,8 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body.task.isDone).toBe(true);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
+                expect(response.body).toHaveProperty("message");
+                expect(response.body.message).toBe(`task ${id} was updated successfully`);
             }));
     it("responds with a single todo", async () =>
         request(app)
@@ -152,6 +158,8 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body.task.isDone).toBe(true);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
+                expect(response.body).toHaveProperty("message");
+                expect(response.body.message).toBe(`task ${id} was updated successfully`);
             }));
     it("responds with a single todo", async () =>
         request(app)
@@ -173,6 +181,8 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body.task.isDone).toBe(false);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
+                expect(response.body).toHaveProperty("message");
+                expect(response.body.message).toBe(`task ${id} was updated successfully`);
             }));
 });
 
@@ -191,8 +201,14 @@ describe("DELETE /v1/tasks/:id", () => {
             .expect("Content-Type", /json/)
             .expect(404, done);
     });
-    it("responds with a 204 status code", (done) => {
-        request(app).delete(`/v1/tasks/${id}`).expect(204, done);
+    it("responds with a 204 status code", async () => {
+        request(app)
+            .delete(`/v1/tasks/${id}`)
+            .expect(200)
+            .then((response) => {
+                expect(response.body).toHaveProperty("message");
+                expect(response.body.message).toBe(`task ${id} was deleted successfully`);
+            });
     });
     it("responds with a not found error", (done) => {
         request(app).get(`/v1/tasks/${id}`).set("Accept", "application/json").expect(404, done);

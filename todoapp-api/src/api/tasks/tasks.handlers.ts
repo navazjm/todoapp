@@ -48,7 +48,7 @@ export async function createOne(req: Request, res: Response<TaskResponse>, next:
 
         res.status(201).json({
             task: task,
-            message: `task '${task.content}' was created successfully`
+            message: `task ${task.id} was created successfully`
         });
     } catch (err) {
         next(err);
@@ -91,8 +91,8 @@ export async function deleteOneByID(req: Request, res: Response<MessageResponse>
             where: { id: numId }
         });
 
-        res.status(204).json({
-            message: `task ${task.id} was deleted successfully`
+        res.status(200).json({
+            message: `task ${numId} was deleted successfully`
         });
     } catch (err) {
         next(err);
