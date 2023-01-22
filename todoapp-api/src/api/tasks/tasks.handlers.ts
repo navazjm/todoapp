@@ -24,7 +24,7 @@ export async function findOneByID(req: Request, res: Response<TaskResponse>, nex
         const task = await prisma.task.findFirstOrThrow({
             where: { id: numId }
         });
-        res.status(201).json({
+        res.json({
             task: task,
             message: `task ${task.id} was found`
         });
@@ -33,15 +33,21 @@ export async function findOneByID(req: Request, res: Response<TaskResponse>, nex
     }
 }
 
-export async function createOne(req: Request, res: Response<MessageResponse>, next: NextFunction) {
+export async function createOne(req: Request, res: Response<TaskResponse>, next: NextFunction) {
     try {
         const { content } = req.body;
+        if (content === "") {
+            res.status(422);
+            throw new Error("Task content is required");
+        }
         const task = await prisma.task.create({
             data: {
                 content: content
             }
         });
-        res.json({
+
+        res.status(201).json({
+            task: task,
             message: `task '${task.content}' was created successfully`
         });
     } catch (err) {
@@ -85,7 +91,7 @@ export async function deleteOneByID(req: Request, res: Response<MessageResponse>
             where: { id: numId }
         });
 
-        res.json({
+        res.status(204).json({
             message: `task ${task.id} was deleted successfully`
         });
     } catch (err) {
