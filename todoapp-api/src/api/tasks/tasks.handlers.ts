@@ -14,15 +14,11 @@ export async function findAll(_: Request, res: Response<TasksResponse>, next: Ne
     }
 }
 
-export async function findOneByID(req: Request, res: Response<TaskResponse>, next: NextFunction) {
+export async function findOneByID(_: Request, res: Response<TaskResponse>, next: NextFunction) {
     try {
-        const { id } = req.params;
-        const numId = parseInt(id);
-        if (isNaN(numId) || numId < 0) {
-            throw new Error("id is not a positive number");
-        }
+        const { id } = res.locals;
         const task = await prisma.task.findFirstOrThrow({
-            where: { id: numId }
+            where: { id: id }
         });
         res.json({
             task: task,
@@ -45,7 +41,6 @@ export async function createOne(req: Request, res: Response<TaskResponse>, next:
                 content: content
             }
         });
-
         res.status(201).json({
             task: task,
             message: `task ${task.id} was created successfully`
@@ -57,20 +52,15 @@ export async function createOne(req: Request, res: Response<TaskResponse>, next:
 
 export async function updateOneByID(req: Request, res: Response<TaskResponse>, next: NextFunction) {
     try {
-        const { id } = req.params;
-        const numId = parseInt(id);
-        if (isNaN(numId) || numId < 0) {
-            throw new Error("id is not a positive number");
-        }
+        const { id } = res.locals;
         const { content, isDone } = req.body;
         const task = await prisma.task.update({
-            where: { id: numId },
+            where: { id: id },
             data: {
                 content: content,
                 isDone: isDone
             }
         });
-
         res.json({
             task: task,
             message: `task ${task.id} was updated successfully`
@@ -82,13 +72,9 @@ export async function updateOneByID(req: Request, res: Response<TaskResponse>, n
 
 export async function deleteOneByID(req: Request, res: Response<MessageResponse>, next: NextFunction) {
     try {
-        const { id } = req.params;
-        const numId = parseInt(id);
-        if (isNaN(numId) || numId < 0) {
-            throw new Error("id is not a positive number");
-        }
+        const { id } = res.locals;
         const task = await prisma.task.delete({
-            where: { id: numId }
+            where: { id: id }
         });
 
         res.status(200).json({
