@@ -9,10 +9,13 @@ import api from "./api";
 require("dotenv").config();
 
 const app = express();
-
+const corsOptions = {
+    origin: process.env.CORS_ORIGIN || "*",
+    optionsSuccessStatus: 200
+};
 app.use(morgan("dev"));
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/v1", api);
