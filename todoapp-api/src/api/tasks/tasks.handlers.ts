@@ -1,12 +1,9 @@
-import express from "express";
+import { Response, Request, NextFunction } from "express";
 import MessageResponse from "../../interfaces/responses/MessageResponse";
 import { TaskResponse, TasksResponse } from "../../interfaces/responses/TasksReponse";
 import prisma from "../../prisma";
 
-const router = express.Router();
-
-// get all tasks
-router.get<{}, TasksResponse>("/", async (_, res, next) => {
+export async function findAll(_: Request, res: Response<TasksResponse>, next: NextFunction) {
     try {
         const allTasks = await prisma.task.findMany();
         res.json({
@@ -15,10 +12,9 @@ router.get<{}, TasksResponse>("/", async (_, res, next) => {
     } catch (err) {
         next(err);
     }
-});
+}
 
-// get task by id
-router.get<{ id: string }, TaskResponse>("/:id", async (req, res, next) => {
+export async function findOneByID(req: Request, res: Response<TaskResponse>, next: NextFunction) {
     try {
         const { id } = req.params;
         const numId = parseInt(id);
@@ -36,10 +32,9 @@ router.get<{ id: string }, TaskResponse>("/:id", async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-});
+}
 
-// create a new task
-router.post<{}, MessageResponse>("/", async (req, res, next) => {
+export async function createOne(req: Request, res: Response<MessageResponse>, next: NextFunction) {
     try {
         const { content } = req.body;
         const task = await prisma.task.create({
@@ -53,10 +48,9 @@ router.post<{}, MessageResponse>("/", async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-});
+}
 
-// edit task by id
-router.put<{ id: string }, TaskResponse>("/:id", async (req, res, next) => {
+export async function updateOneByID(req: Request, res: Response<TaskResponse>, next: NextFunction) {
     try {
         const { id } = req.params;
         const numId = parseInt(id);
@@ -79,10 +73,9 @@ router.put<{ id: string }, TaskResponse>("/:id", async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-});
+}
 
-// delete task by id
-router.delete<{ id: string }, MessageResponse>("/:id", async (req, res, next) => {
+export async function deleteOneByID(req: Request, res: Response<MessageResponse>, next: NextFunction) {
     try {
         const { id } = req.params;
         const numId = parseInt(id);
@@ -99,6 +92,4 @@ router.delete<{ id: string }, MessageResponse>("/:id", async (req, res, next) =>
     } catch (err) {
         next(err);
     }
-});
-
-export default router;
+}

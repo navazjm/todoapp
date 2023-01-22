@@ -1,5 +1,5 @@
 import express from "express";
-import taskRouter from "./tasks";
+import taskRouter from "./tasks/tasks.routes";
 
 import MessageResponse from "../interfaces/responses/MessageResponse";
 
