@@ -24,8 +24,7 @@ export async function findOneByID(req: Request, res: Response<TaskResponse>, nex
         const task = await prisma.task.findFirstOrThrow({
             where: { id: numId }
         });
-
-        res.json({
+        res.status(201).json({
             task: task,
             message: `task ${task.id} was found`
         });
