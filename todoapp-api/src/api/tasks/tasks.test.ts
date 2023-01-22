@@ -43,7 +43,7 @@ describe("POST /v1/tasks", () => {
             .set("Accept", "application/json")
             .send({
                 content: "Pass this test",
-                is_done: false
+                isDone: false
             })
             .expect("Content-Type", /json/)
             .expect(201)
@@ -53,8 +53,8 @@ describe("POST /v1/tasks", () => {
                 id = response.body.task.id;
                 expect(response.body.task).toHaveProperty("content");
                 expect(response.body.task.content).toBe("Pass this test");
-                expect(response.body.task).toHaveProperty("is_done");
-                expect(response.body.task.is_done).toBe(false);
+                expect(response.body.task).toHaveProperty("isDone");
+                expect(response.body.task.isDone).toBe(false);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
             }));
@@ -73,8 +73,8 @@ describe("GET /v1/tasks/:id", () => {
                 expect(response.body.task.id).toBe(id);
                 expect(response.body.task).toHaveProperty("content");
                 expect(response.body.task.content).toBe("Pass this test");
-                expect(response.body.task).toHaveProperty("is_done");
-                expect(response.body.task.is_done).toBe(false);
+                expect(response.body.task).toHaveProperty("isDone");
+                expect(response.body.task.isDone).toBe(false);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
             }));
@@ -108,7 +108,7 @@ describe("PUT /api/v1/todos/:id", () => {
             .set("Accept", "application/json")
             .send({
                 content: "This is a test",
-                is_done: true
+                isDone: true
             })
             .expect("Content-Type", /json/)
             .expect(404, done);
@@ -118,7 +118,7 @@ describe("PUT /api/v1/todos/:id", () => {
             .put(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
             .send({
-                is_done: true
+                isDone: true
             })
             .expect("Content-Type", /json/)
             .expect(200)
@@ -128,8 +128,8 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body.task.id).toBe(id);
                 expect(response.body.task).toHaveProperty("content");
                 expect(response.body.task.content).toBe("Pass this test");
-                expect(response.body.task).toHaveProperty("is_done");
-                expect(response.body.task.is_done).toBe(true);
+                expect(response.body.task).toHaveProperty("isDone");
+                expect(response.body.task.isDone).toBe(true);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
             }));
@@ -143,14 +143,13 @@ describe("PUT /api/v1/todos/:id", () => {
             .expect("Content-Type", /json/)
             .expect(200)
             .then((response) => {
-                expect(response.body.task.is_done).toBe(true);
                 expect(response.body).toHaveProperty("task");
                 expect(response.body.task).toHaveProperty("id");
                 expect(response.body.task.id).toBe(id);
                 expect(response.body.task).toHaveProperty("content");
                 expect(response.body.task.content).toBe("This is the new content");
-                expect(response.body.task).toHaveProperty("is_done");
-                expect(response.body.task.is_done).toBe(true);
+                expect(response.body.task).toHaveProperty("isDone");
+                expect(response.body.task.isDone).toBe(true);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
             }));
@@ -160,7 +159,7 @@ describe("PUT /api/v1/todos/:id", () => {
             .set("Accept", "application/json")
             .send({
                 content: "This is the new content 2",
-                is_done: false
+                isDone: false
             })
             .expect("Content-Type", /json/)
             .expect(200)
@@ -170,8 +169,8 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body.task.id).toBe(id);
                 expect(response.body.task).toHaveProperty("content");
                 expect(response.body.task.content).toBe("This is the new content 2");
-                expect(response.body.task).toHaveProperty("is_done");
-                expect(response.body.task.is_done).toBe(false);
+                expect(response.body.task).toHaveProperty("isDone");
+                expect(response.body.task.isDone).toBe(false);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
             }));

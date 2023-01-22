@@ -3,7 +3,7 @@ import MessageResponse from "./MessageResponse";
 interface Task {
     id: number;
     content: string;
-    is_done: boolean;
+    isDone: boolean;
     createdAt: Date;
     updatedAt: Date;
 }

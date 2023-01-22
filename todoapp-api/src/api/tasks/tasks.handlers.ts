@@ -62,12 +62,12 @@ export async function updateOneByID(req: Request, res: Response<TaskResponse>, n
         if (isNaN(numId) || numId < 0) {
             throw new Error("id is not a positive number");
         }
-        const { content, is_done } = req.body;
+        const { content, isDone } = req.body;
         const task = await prisma.task.update({
             where: { id: numId },
             data: {
                 content: content,
-                is_done: is_done
+                isDone: isDone
             }
         });
 
