@@ -7,8 +7,9 @@ import { Home } from "./pages/home";
 import { NotFound } from "./pages/not-found";
 import { Layout } from "./layouts/layout";
 import "./main.css";
+import { AlertProvider } from "./components/alert/alert.context";
 
-const Providers = BuildProviderTree([TasksProvider]);
+const Providers = BuildProviderTree([TasksProvider, AlertProvider]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
