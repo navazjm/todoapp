@@ -1,7 +1,9 @@
+import TasksComponent from "../features/tasks/tasks.component";
+
 export const Home = () => {
     return (
         <>
-            <h3>Home</h3>
+            <TasksComponent />
         </>
     );
 };
