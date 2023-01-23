@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import { Home } from "./pages/home";
 import { NotFound } from "./pages/not-found";
-import { Layout } from "./layouts";
+import { Layout } from "./layouts/layout";
 import "./main.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
