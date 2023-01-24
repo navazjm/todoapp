@@ -7,8 +7,8 @@ const AlertContext = createContext<IAlertContext | null>(null);
 export const AlertProvider = ({ children }: Props) => {
     const [alert, setAlert] = useState<IAlert>({
         message: "",
-        type: "",
-        isActive: false
+        type: undefined,
+        isOpen: false
     });
 
     return <AlertContext.Provider value={{ alert: alert, setAlert: setAlert }}>{children}</AlertContext.Provider>;

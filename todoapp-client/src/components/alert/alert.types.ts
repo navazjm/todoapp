@@ -1,7 +1,9 @@
+import { AlertColor } from "@mui/material";
+
 export interface IAlert {
     message: string;
-    type: string;
-    isActive: boolean;
+    type: AlertColor | undefined;
+    isOpen: boolean;
 }
 
 export interface IAlertContext {

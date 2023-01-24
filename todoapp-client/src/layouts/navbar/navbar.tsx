@@ -1,21 +1,38 @@
 import { NavLink } from "react-router-dom";
 import TodoappLogo from "../../assets/todoapp-logo.png";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { Avatar, Box } from "@mui/material";
 
-export const Navbar = () => {
+export default function Navbar() {
     return (
-        <>
-            <div className="navbar bg-base-100 shadow">
-                <div className="flex-1">
-                    <NavLink to="/" className="btn btn-ghost normal-case text-xl">
-                        <label className="avatar">
-                            <div className="w-10 rounded-full">
-                                <img src={TodoappLogo} />
-                            </div>
-                        </label>
-                        Todo App
+        <AppBar position="fixed" color="transparent">
+            <Container maxWidth="xl">
+                <Toolbar>
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Avatar alt="Remy Sharp" src={TodoappLogo} />
+                    </Box>
+                    <NavLink to="/" style={{ textDecoration: "none", color: "#000" }}>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="span"
+                            sx={{
+                                mr: 2,
+                                display: { xs: "none", md: "flex" },
+                                fontFamily: "monospace",
+                                fontWeight: 700,
+                                color: "inherit",
+                                textDecoration: "none"
+                            }}
+                        >
+                            TodoApp
+                        </Typography>
                     </NavLink>
-                </div>
-            </div>
-        </>
+                </Toolbar>
+            </Container>
+        </AppBar>
     );
-};
+}

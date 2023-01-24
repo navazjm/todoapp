@@ -6,8 +6,8 @@ import { TasksProvider } from "./features/tasks/tasks.context";
 import { Home } from "./pages/home";
 import { NotFound } from "./pages/not-found";
 import { Layout } from "./layouts/layout";
-import "./main.css";
 import { AlertProvider } from "./components/alert/alert.context";
+import "./main.css";
 
 const Providers = BuildProviderTree([TasksProvider, AlertProvider]);
 
