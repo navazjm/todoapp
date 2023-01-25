@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
-import BuildProviderTree from "./utils/buildProviderTree";
 import { TasksProvider } from "./features/tasks/tasks.context";
 import { Home } from "./pages/home";
 import { NotFound } from "./pages/not-found";
 import { Layout } from "./layouts/layout.component";
 import { AlertProvider } from "./components/alert/alert.context";
+import BuildProviderTree from "./utils/buildProviderTree";
 import "./main.css";
 
 const Providers = BuildProviderTree([TasksProvider, AlertProvider]);

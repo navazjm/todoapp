@@ -1,4 +1,3 @@
-import React from "react";
 import { Props } from "./types";
 
 // TODO: add type annotations
