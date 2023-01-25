@@ -5,7 +5,7 @@ import BuildProviderTree from "./utils/buildProviderTree";
 import { TasksProvider } from "./features/tasks/tasks.context";
 import { Home } from "./pages/home";
 import { NotFound } from "./pages/not-found";
-import { Layout } from "./layouts/layout";
+import { Layout } from "./layouts/layout.component";
 import { AlertProvider } from "./components/alert/alert.context";
 import "./main.css";
 
