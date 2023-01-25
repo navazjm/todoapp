@@ -1,0 +1,10 @@
+.tasks-card-content-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+    row-gap: 1rem;
+    padding-bottom: 1rem;
+}

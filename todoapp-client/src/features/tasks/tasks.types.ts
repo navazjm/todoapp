@@ -1,3 +1,5 @@
+import { IMessageResponse } from "../../utils/types";
+
 export interface ITask {
     id: number;
     content: string;
@@ -6,7 +8,8 @@ export interface ITask {
     updatedAt: Date;
 }
 
-export interface ITasksContext {
-    tasks: ITask[] | null;
-    setTasks: React.Dispatch<React.SetStateAction<ITask[] | null>>;
+export interface ITaskResp extends IMessageResponse {
+    task: ITask;
 }
+
+export type TaskFilterByDoneValue = "all" | "incomplete" | "completed";

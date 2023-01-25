@@ -1,0 +1,16 @@
+.tasks-list-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.tasks-list-input-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+}
