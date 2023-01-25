@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { ITasksListBaseProps } from "../tasks-list.types";
+import { ITasksListBaseProps } from "../../tasks-list.types";
 import "./tasks-list-edit-task-content.component.css";
 
 interface IEditTaskContentInputProps extends ITasksListBaseProps {

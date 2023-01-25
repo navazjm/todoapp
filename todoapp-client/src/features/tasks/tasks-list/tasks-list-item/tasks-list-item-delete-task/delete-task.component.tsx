@@ -9,11 +9,11 @@ import {
     IconButton
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { IAlert } from "../../../../components/alert/alert.types";
-import { useAlert } from "../../../../components/alert/alert.hooks";
-import { useTasks } from "../../tasks.hooks";
-import { ITasksListBaseProps } from "../tasks-list.types";
-import * as TodoAppAPI from "../../tasks.api";
+import { IAlert } from "../../../../../components/alert/alert.types";
+import { useAlert } from "../../../../../components/alert/alert.hooks";
+import { useTasks } from "../../../tasks.hooks";
+import { ITasksListBaseProps } from "../../tasks-list.types";
+import * as TodoAppAPI from "../../../tasks.api";
 import "./delete-task.component.css";
 
 export default function DeleteTask({ task }: ITasksListBaseProps) {

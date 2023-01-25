@@ -5,8 +5,8 @@ import { IAlert } from "../../../../components/alert/alert.types";
 import { useAlert } from "../../../../components/alert/alert.hooks";
 import { useTasks } from "../../tasks.hooks";
 import { ITasksListBaseProps } from "../tasks-list.types";
-import EditTaskContentInput from "../tasks-list-edit-task-content/tasks-list-edit-task-content.component";
-import DeleteTask from "../tasks-list-delete-task/delete-task.component";
+import EditTaskContentInput from "./tasks-list-item-edit-task-content/tasks-list-edit-task-content.component";
+import DeleteTask from "./tasks-list-item-delete-task/delete-task.component";
 import * as TodoAppAPI from "../../tasks.api";
 import "./tasks-list-item.component.css";
 
