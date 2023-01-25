@@ -1,8 +1,11 @@
 .edit-task-content-input {
     border: none;
     outline: none;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-family: monospace;
     width: 100%;
+    padding: 0;
 }

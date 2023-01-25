@@ -70,12 +70,10 @@ export default function TasksListItem({ task }: ITasksListBaseProps) {
                 />
                 {task.isDone ? (
                     <Typography
-                        variant="h6"
                         noWrap
-                        component="span"
+                        component="p"
                         sx={{
                             paddingRight: "1rem",
-                            display: { xs: "none", md: "flex" },
                             fontFamily: "monospace",
                             fontWeight: 700,
                             color: "inherit",
