@@ -17,7 +17,7 @@ export default function TasksComponent() {
                 }}
             >
                 <Card sx={{ minWidth: 350, width: 600, maxHeight: 600, overflowY: "auto" }}>
-                    <CardContent>
+                    <CardContent sx={{ paddingTop: 0 }}>
                         <div className="tasks-card-content-header">
                             <TasksInput />
                             <TasksFilter />
