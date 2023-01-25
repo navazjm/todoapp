@@ -20,9 +20,18 @@ export default function TasksList() {
 
     function filterByDone(task: ITask): boolean {
         if (tasksCtx?.filterByDoneValue === "all") return true;
-        if (tasksCtx?.filterByDoneValue === "incomplete" && !task.isDone) return true;
-        if (tasksCtx?.filterByDoneValue === "completed" && task.isDone) return true;
+        if (tasksCtx?.filterByDoneValue === "no" && !task.isDone) return true;
+        if (tasksCtx?.filterByDoneValue === "yes" && task.isDone) return true;
         return false;
+    }
+
+    function sortByTaskOrderByDateValue(task1: ITask, task2: ITask) {
+        const task1DateValue = new Date(task1.updatedAt).valueOf();
+        const task2DateValue = new Date(task2.updatedAt).valueOf();
+        if (tasksCtx?.orderByDateValue === "oldest") {
+            return task1DateValue - task2DateValue;
+        }
+        return task2DateValue - task1DateValue;
     }
 
     return (
@@ -33,6 +42,7 @@ export default function TasksList() {
                         (task) => new Date(task.createdAt).toDateString() === tasksCtx.filterByDateValue.toDateString()
                     )
                     .filter(filterByDone)
+                    .sort(sortByTaskOrderByDateValue)
                     .map((task) => (
                         <Fragment key={task.id}>
                             <TasksListItem task={task} />
