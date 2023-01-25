@@ -1,7 +1,13 @@
 import { Fragment, useEffect } from "react";
 import { Divider } from "@mui/material";
 import { useTasks } from "../tasks.hooks";
-import { ITask } from "../tasks.types";
+import {
+    ITask,
+    TASKFILTERBYDONE_ALL,
+    TASKFILTERBYDONE_NO,
+    TASKFILTERBYDONE_YES,
+    TASKORDERBYDATE_OLDEST
+} from "../tasks.types";
 import TasksListItem from "./tasks-list-item/tasks-list-item.component";
 import * as TodoAppAPI from "../tasks.api";
 import "./tasks-list.component.css";
@@ -19,19 +25,20 @@ export default function TasksList() {
     }, []);
 
     function filterByDone(task: ITask): boolean {
-        if (tasksCtx?.filterByDoneValue === "all") return true;
-        if (tasksCtx?.filterByDoneValue === "no" && !task.isDone) return true;
-        if (tasksCtx?.filterByDoneValue === "yes" && task.isDone) return true;
+        if (tasksCtx?.filterByDoneValue === TASKFILTERBYDONE_ALL) return true;
+        if (tasksCtx?.filterByDoneValue === TASKFILTERBYDONE_NO && !task.isDone) return true;
+        if (tasksCtx?.filterByDoneValue === TASKFILTERBYDONE_YES && task.isDone) return true;
         return false;
     }
 
     function sortByTaskOrderByDateValue(task1: ITask, task2: ITask) {
-        const task1DateValue = new Date(task1.updatedAt).valueOf();
-        const task2DateValue = new Date(task2.updatedAt).valueOf();
-        if (tasksCtx?.orderByDateValue === "oldest") {
-            return task1DateValue - task2DateValue;
+        const task1CreatedAtDateValue = new Date(task1.createdAt).valueOf();
+        const task2CreatedAtDateValue = new Date(task2.createdAt).valueOf();
+        if (tasksCtx?.orderByDateValue === TASKORDERBYDATE_OLDEST) {
+            return task1CreatedAtDateValue - task2CreatedAtDateValue;
         }
-        return task2DateValue - task1DateValue;
+
+        return task2CreatedAtDateValue - task1CreatedAtDateValue;
     }
 
     return (

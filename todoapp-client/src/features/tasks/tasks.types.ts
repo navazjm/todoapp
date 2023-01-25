@@ -12,5 +12,14 @@ export interface ITaskResp extends IMessageResponse {
     task: ITask;
 }
 
-export type TaskFilterByDoneValue = "all" | "yes" | "no";
-export type TaskOrderByDateValue = "oldest" | "newest";
+export const TASKFILTERBYDONE_ALL = "all";
+export const TASKFILTERBYDONE_YES = "yes";
+export const TASKFILTERBYDONE_NO = "no";
+export type TaskFilterByDoneValue =
+    | typeof TASKFILTERBYDONE_ALL
+    | typeof TASKFILTERBYDONE_YES
+    | typeof TASKFILTERBYDONE_NO;
+
+export const TASKORDERBYDATE_OLDEST = "oldest";
+export const TASKORDERBYDATE_NEWEST = "newest";
+export type TaskOrderByDateValue = typeof TASKORDERBYDATE_OLDEST | typeof TASKORDERBYDATE_NEWEST;

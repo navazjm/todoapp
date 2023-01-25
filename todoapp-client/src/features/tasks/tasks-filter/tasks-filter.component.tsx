@@ -11,7 +11,15 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTasks } from "../tasks.hooks";
-import { TaskFilterByDoneValue, TaskOrderByDateValue } from "../tasks.types";
+import {
+    TaskFilterByDoneValue,
+    TASKFILTERBYDONE_ALL,
+    TASKFILTERBYDONE_NO,
+    TASKFILTERBYDONE_YES,
+    TaskOrderByDateValue,
+    TASKORDERBYDATE_NEWEST,
+    TASKORDERBYDATE_OLDEST
+} from "../tasks.types";
 import "./tasks-filter.component.css";
 
 export default function TasksFilter() {
@@ -41,9 +49,9 @@ export default function TasksFilter() {
                         label="Done"
                         onChange={onSelectFilterByDoneValue}
                     >
-                        <MenuItem value="all">All</MenuItem>
-                        <MenuItem value="yes">Yes</MenuItem>
-                        <MenuItem value="no">No</MenuItem>
+                        <MenuItem value={TASKFILTERBYDONE_ALL}>All</MenuItem>
+                        <MenuItem value={TASKFILTERBYDONE_YES}>Yes</MenuItem>
+                        <MenuItem value={TASKFILTERBYDONE_NO}>No</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl sx={{ minWidth: 100 }}>
@@ -54,8 +62,8 @@ export default function TasksFilter() {
                         label="Order by"
                         onChange={onSelectOrderByDateValue}
                     >
-                        <MenuItem value="oldest">Oldest</MenuItem>
-                        <MenuItem value="newest">Newest</MenuItem>
+                        <MenuItem value={TASKORDERBYDATE_OLDEST}>Oldest</MenuItem>
+                        <MenuItem value={TASKORDERBYDATE_NEWEST}>Newest</MenuItem>
                     </Select>
                 </FormControl>
             </AccordionDetails>
