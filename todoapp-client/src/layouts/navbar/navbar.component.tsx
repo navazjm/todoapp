@@ -1,10 +1,7 @@
 import { NavLink } from "react-router-dom";
+import { Avatar, Box, AppBar, Toolbar, Typography, Container } from "@mui/material";
 import TodoappLogo from "../../assets/todoapp-logo.png";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { Avatar, Box } from "@mui/material";
+import "./navbar.component.css";
 
 export default function Navbar() {
     return (
@@ -14,7 +11,7 @@ export default function Navbar() {
                     <Box sx={{ flexGrow: 0 }}>
                         <Avatar alt="Remy Sharp" src={TodoappLogo} />
                     </Box>
-                    <NavLink to="/" style={{ textDecoration: "none", color: "#000" }}>
+                    <NavLink to="/" className="navbar-navlink">
                         <Typography
                             variant="h6"
                             noWrap
