@@ -12,4 +12,5 @@ export interface ITaskResp extends IMessageResponse {
     task: ITask;
 }
 
-export type TaskFilterByDoneValue = "all" | "incomplete" | "completed";
+export type TaskFilterByDoneValue = "all" | "yes" | "no";
+export type TaskOrderByDateValue = "oldest" | "newest";
