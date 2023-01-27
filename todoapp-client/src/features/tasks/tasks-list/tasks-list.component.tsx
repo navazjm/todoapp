@@ -1,5 +1,5 @@
-import { Fragment, useEffect } from "react";
-import { Divider } from "@mui/material";
+import { Fragment, useEffect, useState } from "react";
+import { Divider, Typography } from "@mui/material";
 import { useTasks } from "../tasks.hooks";
 import {
     ITask,
@@ -14,6 +14,7 @@ import "./tasks-list.component.css";
 
 export default function TasksList() {
     const tasksCtx = useTasks();
+    const [filteredTasks, setFilteredTasks] = useState<ITask[] | undefined>([]);
 
     useEffect(() => {
         TodoAppAPI.getAll().then((tasks) => {
@@ -23,6 +24,15 @@ export default function TasksList() {
             tasksCtx?.setTasks(tasks);
         });
     }, []);
+
+    useEffect(() => {
+        setFilteredTasks(
+            tasksCtx?.tasks
+                .filter((task) => new Date(task.createdAt).toDateString() === tasksCtx.filterByDateValue.toDateString())
+                .filter(filterByDone)
+                .sort(sortByTaskOrderByDateValue)
+        );
+    }, [tasksCtx?.tasks, tasksCtx?.filterByDateValue, tasksCtx?.filterByDoneValue, tasksCtx?.orderByDateValue]);
 
     function filterByDone(task: ITask): boolean {
         if (tasksCtx?.filterByDoneValue === TASKFILTERBYDONE_ALL) return true;
@@ -43,19 +53,18 @@ export default function TasksList() {
 
     return (
         <>
-            {tasksCtx?.tasks &&
-                tasksCtx.tasks
-                    .filter(
-                        (task) => new Date(task.createdAt).toDateString() === tasksCtx.filterByDateValue.toDateString()
-                    )
-                    .filter(filterByDone)
-                    .sort(sortByTaskOrderByDateValue)
-                    .map((task) => (
-                        <Fragment key={task.id}>
-                            <TasksListItem task={task} />
-                            <Divider />
-                        </Fragment>
-                    ))}
+            {filteredTasks && filteredTasks.length > 0 ? (
+                filteredTasks.map((task) => (
+                    <Fragment key={task.id}>
+                        <TasksListItem task={task} />
+                        <Divider />
+                    </Fragment>
+                ))
+            ) : (
+                <Typography sx={{ paddingTop: "1.5rem", fontStyle: "italic", fontWeight: 200, opacity: "0.5" }}>
+                    Add a new task...
+                </Typography>
+            )}
         </>
     );
 }
