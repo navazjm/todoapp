@@ -14,7 +14,9 @@ export default function TasksInput() {
     const alertCtx = useAlert();
 
     function onSetDateFilterValue(event: React.ChangeEvent<HTMLInputElement>): void {
-        tasksCtx?.setFilterByDateValue(new Date(event.target.value));
+        // change date value from "yyyy-mm-dd" to "yyyy/mm/dd"
+        const dateValueString = event.target.value.replaceAll("-", "/");
+        tasksCtx?.setFilterByDateValue(new Date(dateValueString));
     }
 
     async function createNewTask(event: React.SyntheticEvent) {
