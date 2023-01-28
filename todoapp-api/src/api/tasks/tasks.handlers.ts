@@ -84,3 +84,19 @@ export async function deleteOneByID(req: Request, res: Response<MessageResponse>
         next(err);
     }
 }
+
+export async function deleteAllByDate(req: Request, res: Response<MessageResponse>, next: NextFunction) {
+    try {
+        const dateReqValue = req.body.date as string;
+        const dateReqValueWithoutTime = dateReqValue.slice(0, 10);
+        const numRowsAffected = await prisma.$executeRawUnsafe(
+            'DELETE FROM "Task" WHERE "createdAt"::text ILIKE $1;',
+            `${dateReqValueWithoutTime}%`
+        );
+        res.status(200).json({
+            message: `Deleted ${numRowsAffected} tasks successfully`
+        });
+    } catch (err) {
+        next(err);
+    }
+}

@@ -1,17 +1,16 @@
 import request from "supertest";
-
 import app from "../../app";
 import prisma from "../../prisma";
 
 beforeAll(async () => {
     try {
         await prisma.task.deleteMany();
-    } catch (error) { }
+    } catch (error) {}
 });
 
 describe("GET /v1/tasks", () => {
-    it("responds with an array of tasks", async () =>
-        request(app)
+    it("responds with an empty array of tasks", async () =>
+        await request(app)
             .get("/v1/tasks")
             .set("Accept", "application/json")
             .expect("Content-Type", /json/)
@@ -26,7 +25,7 @@ describe("GET /v1/tasks", () => {
 let id = "";
 describe("POST /v1/tasks", () => {
     it("responds with an error if the task is invalid", async () =>
-        request(app)
+        await request(app)
             .post("/v1/tasks")
             .set("Accept", "application/json")
             .send({
@@ -38,7 +37,7 @@ describe("POST /v1/tasks", () => {
                 expect(response.body).toHaveProperty("message");
             }));
     it("responds with an inserted object", async () =>
-        request(app)
+        await request(app)
             .post("/v1/tasks")
             .set("Accept", "application/json")
             .send({
@@ -64,7 +63,7 @@ describe("POST /v1/tasks", () => {
 
 describe("GET /v1/tasks/:id", () => {
     it("responds with a single task", async () =>
-        request(app)
+        await request(app)
             .get(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
             .expect("Content-Type", /json/)
@@ -118,7 +117,7 @@ describe("PUT /api/v1/todos/:id", () => {
             .expect(404, done);
     });
     it("responds with a single task", async () =>
-        request(app)
+        await request(app)
             .put(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
             .send({
@@ -140,7 +139,7 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body.message).toBe(`task ${id} was updated successfully`);
             }));
     it("responds with a single todo", async () =>
-        request(app)
+        await request(app)
             .put(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
             .send({
@@ -162,7 +161,7 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body.message).toBe(`task ${id} was updated successfully`);
             }));
     it("responds with a single todo", async () =>
-        request(app)
+        await request(app)
             .put(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
             .send({
@@ -202,7 +201,7 @@ describe("DELETE /v1/tasks/:id", () => {
             .expect(404, done);
     });
     it("responds with a 204 status code", async () => {
-        request(app)
+        await request(app)
             .delete(`/v1/tasks/${id}`)
             .expect(200)
             .then((response) => {
@@ -212,5 +211,57 @@ describe("DELETE /v1/tasks/:id", () => {
     });
     it("responds with a not found error", (done) => {
         request(app).get(`/v1/tasks/${id}`).set("Accept", "application/json").expect(404, done);
+    });
+});
+
+const numTasks = 3;
+describe(`DELETE /v1/tasks/all - insert ${numTasks} new tasks and delete all`, () => {
+    for (let i = 0; i < numTasks; i++) {
+        it("responds with an inserted object", async () => {
+            await request(app)
+                .post("/v1/tasks")
+                .set("Accept", "application/json")
+                .send({
+                    content: `Pass this test ${numTasks}`,
+                    isDone: false
+                })
+                .expect("Content-Type", /json/)
+                .expect(201)
+                .then((response) => {
+                    expect(response.body).toHaveProperty("task");
+                    expect(response.body.task).toHaveProperty("id");
+                    expect(response.body.task).toHaveProperty("content");
+                    expect(response.body.task).toHaveProperty("isDone");
+                    expect(response.body.task).toHaveProperty("createdAt");
+                    expect(response.body.task).toHaveProperty("updatedAt");
+                    expect(response.body).toHaveProperty("message");
+                });
+        });
+    }
+    it("responds with an 200 status code", async () => {
+        const now = new Date().toISOString().slice(0, 10);
+        await request(app)
+            .delete("/v1/tasks/all")
+            .send({
+                date: now
+            })
+            .set("Accept", "application/json")
+            .expect(200)
+            .then((response) => {
+                expect(response.body).toHaveProperty("message");
+                expect(response.body.message).toBe(`Deleted ${numTasks} tasks successfully`);
+            });
+    });
+    it("responds with an empty array of tasks", async () => {
+        await request(app)
+            .get("/v1/tasks")
+            .set("Accept", "application/json")
+            .expect("Content-Type", /json/)
+            .expect(200)
+            .then((response) => {
+                expect(response.body).toHaveProperty("tasks");
+                expect(response.body.tasks).toHaveProperty("length");
+                expect(response.body.tasks.length).toBe(0);
+            });
     });
 });
