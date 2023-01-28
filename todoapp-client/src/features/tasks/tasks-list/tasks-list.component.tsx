@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { Divider, Typography } from "@mui/material";
 import { useTasks } from "../tasks.hooks";
 import {
@@ -14,7 +14,6 @@ import "./tasks-list.component.css";
 
 export default function TasksList() {
     const tasksCtx = useTasks();
-    const [filteredTasks, setFilteredTasks] = useState<ITask[] | undefined>([]);
 
     useEffect(() => {
         TodoAppAPI.getAll().then((tasks) => {
@@ -26,7 +25,7 @@ export default function TasksList() {
     }, []);
 
     useEffect(() => {
-        setFilteredTasks(
+        tasksCtx?.setFilteredTasks(
             tasksCtx?.tasks
                 .filter((task) => new Date(task.createdAt).toDateString() === tasksCtx.filterByDateValue.toDateString())
                 .filter(filterByDone)
@@ -53,8 +52,8 @@ export default function TasksList() {
 
     return (
         <>
-            {filteredTasks && filteredTasks.length > 0 ? (
-                filteredTasks.map((task) => (
+            {tasksCtx?.filteredTasks && tasksCtx.filteredTasks.length > 0 ? (
+                tasksCtx.filteredTasks.map((task) => (
                     <Fragment key={task.id}>
                         <TasksListItem task={task} />
                         <Divider />

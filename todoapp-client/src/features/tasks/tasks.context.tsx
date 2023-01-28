@@ -5,6 +5,8 @@ import { ITask, TaskFilterByDoneValue, TaskOrderByDateValue } from "./tasks.type
 interface ITasksContext {
     tasks: ITask[];
     setTasks: React.Dispatch<React.SetStateAction<ITask[]>>;
+    filteredTasks: ITask[];
+    setFilteredTasks: React.Dispatch<React.SetStateAction<ITask[]>>;
     filterByDoneValue: TaskFilterByDoneValue;
     setFilterByDoneValue: React.Dispatch<React.SetStateAction<TaskFilterByDoneValue>>;
     filterByDateValue: Date;
@@ -17,6 +19,7 @@ const TasksContext = createContext<ITasksContext | null>(null);
 
 export const TasksProvider = ({ children }: Props) => {
     const [tasks, setTasks] = useState<ITask[]>([]);
+    const [filteredTasks, setFilteredTasks] = useState<ITask[]>([]);
     const [filterByDone, setFilterByDone] = useState<TaskFilterByDoneValue>("all");
     const [filterByDate, setFilterByDate] = useState<Date>(new Date());
     const [orderByDate, setOrderByDate] = useState<TaskOrderByDateValue>("oldest");
@@ -26,6 +29,8 @@ export const TasksProvider = ({ children }: Props) => {
             value={{
                 tasks: tasks,
                 setTasks: setTasks,
+                filteredTasks: filteredTasks,
+                setFilteredTasks: setFilteredTasks,
                 filterByDoneValue: filterByDone,
                 setFilterByDoneValue: setFilterByDone,
                 filterByDateValue: filterByDate,

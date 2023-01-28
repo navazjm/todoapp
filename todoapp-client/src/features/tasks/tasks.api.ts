@@ -30,3 +30,13 @@ export async function deleteOneByID(taskID: number): Promise<IMessageResponse> {
     const messageResp: IMessageResponse = resp.data;
     return messageResp;
 }
+
+export async function deleteAllByDate(date: string): Promise<IMessageResponse> {
+    const resp = await axios.delete("/v1/tasks/all", {
+        data: {
+            date: date
+        }
+    });
+    const messageResp: IMessageResponse = resp.data;
+    return messageResp;
+}

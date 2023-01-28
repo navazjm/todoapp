@@ -1,5 +1,5 @@
-import { Card, CardContent, Container, Divider } from "@mui/material";
-import TasksFilter from "./tasks-filter/tasks-filter.component";
+import { Card, CardContent, Container } from "@mui/material";
+import TasksAdvancedOptions from "./tasks-advanced-options/tasks-advanced-options.component";
 import TasksInput from "./tasks-input/tasks-input.component";
 import TasksList from "./tasks-list/tasks-list.component";
 import "./tasks.component.css";
@@ -20,9 +20,8 @@ export default function TasksComponent() {
                     <CardContent sx={{ paddingTop: 0 }}>
                         <div className="tasks-card-content-header">
                             <TasksInput />
-                            <TasksFilter />
+                            <TasksAdvancedOptions />
                         </div>
-                        <Divider />
                         <TasksList />
                     </CardContent>
                 </Card>
