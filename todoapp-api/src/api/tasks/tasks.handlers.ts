@@ -31,14 +31,15 @@ export async function findOneByID(_: Request, res: Response<TaskResponse>, next:
 
 export async function createOne(req: Request, res: Response<TaskResponse>, next: NextFunction) {
     try {
-        const { content } = req.body;
+        const { content, assignedAt } = req.body;
         if (content === "") {
             res.status(422);
             throw new Error("Task content is required");
         }
         const task = await prisma.task.create({
             data: {
-                content: content
+                content: content,
+                assignedAt: assignedAt
             }
         });
         res.status(201).json({
