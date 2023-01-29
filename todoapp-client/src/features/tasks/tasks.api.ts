@@ -8,9 +8,10 @@ export async function getAll(): Promise<ITask[]> {
     return tasks;
 }
 
-export async function createOne(taskContent: string): Promise<ITaskResp> {
+export async function createOne(taskContent: string, assignedDate: string): Promise<ITaskResp> {
     const resp = await axios.post("/v1/tasks", {
-        content: taskContent
+        content: taskContent,
+        assignedAt: assignedDate
     });
     const taskResp: ITaskResp = resp.data;
     return taskResp;

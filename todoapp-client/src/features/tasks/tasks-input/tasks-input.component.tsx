@@ -23,7 +23,8 @@ export default function TasksInput() {
         event.preventDefault();
 
         try {
-            const taskResp = await TodoAppAPI.createOne(taskContent);
+            const assignedDate = tasksCtx?.filterByDateValue.toISOString() as string;
+            const taskResp = await TodoAppAPI.createOne(taskContent, assignedDate);
 
             tasksCtx?.setTasks((tasks: ITask[]) => [...tasks, taskResp.task]);
             const newAlert: IAlert = {

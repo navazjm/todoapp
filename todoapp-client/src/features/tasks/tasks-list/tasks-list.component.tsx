@@ -28,7 +28,9 @@ export default function TasksList() {
     useEffect(() => {
         setFilteredTasks(
             tasksCtx?.tasks
-                .filter((task) => new Date(task.createdAt).toDateString() === tasksCtx.filterByDateValue.toDateString())
+                .filter(
+                    (task) => new Date(task.assignedAt).toDateString() === tasksCtx.filterByDateValue.toDateString()
+                )
                 .filter(filterByDone)
                 .sort(sortByTaskOrderByDateValue)
         );
