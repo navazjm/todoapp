@@ -14,6 +14,10 @@ jobs:
             matrix:
                 node-version: [16.x]
 
+        defaults:
+            run:
+                working-directory: ./todoapp-api/
+
         steps:
             - uses: actions/checkout@v3
             - name: Use Node.js ${{ matrix.node-version }}
@@ -22,9 +26,8 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
                   cache-dependency-path: ./todoapp-api/package-lock.json
+            - run: npm ci
             - name: Run API Linter
-              working-directory: ./todoapp-api
               run: npm run lint
             - name: Run API Formatter
-              working-directory: ./todoapp-api
               run: npm run format
