@@ -14,6 +14,8 @@
 
 Used this project to learn the basics of NodeJS, Express with TypeScript, and Prisma.
 
+This is a test
+
 ## Run Project Locally
 
 ### Clone the repo locally
@@ -72,7 +74,7 @@ npm i
 
 5. Run db migrations
 
-```sh 
+```sh
 npx prisma migrate dev
 ```
 
