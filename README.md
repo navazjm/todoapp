@@ -14,8 +14,6 @@
 
 Used this project to learn the basics of NodeJS, Express with TypeScript, and Prisma.
 
-This is a test
-
 ## Run Project Locally
 
 ### Clone the repo locally
