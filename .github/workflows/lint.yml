@@ -21,9 +21,13 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
+            - run: npm ci
+              working-directory: ./todoapp-api
             - name: Run API linter
               working-directory: ./todoapp-api
               run: npm run lint
+            - run: npm ci
+              working-directory: ./todoapp-client
             - name: Run Client linter
               working-directory: ./todoapp-client
               run: npm run lint
