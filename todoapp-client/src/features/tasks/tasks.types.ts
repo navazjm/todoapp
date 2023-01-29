@@ -6,6 +6,7 @@ export interface ITask {
     isDone: boolean;
     createdAt: Date;
     updatedAt: Date;
+    assignedAt: Date;
 }
 
 export interface ITaskResp extends IMessageResponse {

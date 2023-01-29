@@ -6,12 +6,12 @@ import prisma from "../../prisma";
 beforeAll(async () => {
     try {
         await prisma.task.deleteMany();
-    } catch (error) { }
+    } catch (error) {}
 });
 
 describe("GET /v1/tasks", () => {
     it("responds with an array of tasks", async () =>
-        request(app)
+        await request(app)
             .get("/v1/tasks")
             .set("Accept", "application/json")
             .expect("Content-Type", /json/)
@@ -25,8 +25,11 @@ describe("GET /v1/tasks", () => {
 
 let id = "";
 describe("POST /v1/tasks", () => {
+    const date = new Date();
+    date.setDate(date.getDate() - 1);
+
     it("responds with an error if the task is invalid", async () =>
-        request(app)
+        await request(app)
             .post("/v1/tasks")
             .set("Accept", "application/json")
             .send({
@@ -38,12 +41,12 @@ describe("POST /v1/tasks", () => {
                 expect(response.body).toHaveProperty("message");
             }));
     it("responds with an inserted object", async () =>
-        request(app)
+        await request(app)
             .post("/v1/tasks")
             .set("Accept", "application/json")
             .send({
                 content: "Pass this test",
-                isDone: false
+                assignedAt: date
             })
             .expect("Content-Type", /json/)
             .expect(201)
@@ -57,6 +60,8 @@ describe("POST /v1/tasks", () => {
                 expect(response.body.task.isDone).toBe(false);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
+                expect(response.body.task).toHaveProperty("assignedAt");
+                expect(response.body.task.assignedAt).toBe(date.toISOString());
                 expect(response.body).toHaveProperty("message");
                 expect(response.body.message).toBe(`task ${id} was created successfully`);
             }));
@@ -64,7 +69,7 @@ describe("POST /v1/tasks", () => {
 
 describe("GET /v1/tasks/:id", () => {
     it("responds with a single task", async () =>
-        request(app)
+        await request(app)
             .get(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
             .expect("Content-Type", /json/)
@@ -79,6 +84,7 @@ describe("GET /v1/tasks/:id", () => {
                 expect(response.body.task.isDone).toBe(false);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
+                expect(response.body.task).toHaveProperty("assignedAt");
                 expect(response.body).toHaveProperty("message");
                 expect(response.body.message).toBe(`task ${id} was found`);
             }));
@@ -118,7 +124,7 @@ describe("PUT /api/v1/todos/:id", () => {
             .expect(404, done);
     });
     it("responds with a single task", async () =>
-        request(app)
+        await request(app)
             .put(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
             .send({
@@ -136,11 +142,12 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body.task.isDone).toBe(true);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
+                expect(response.body.task).toHaveProperty("assignedAt");
                 expect(response.body).toHaveProperty("message");
                 expect(response.body.message).toBe(`task ${id} was updated successfully`);
             }));
     it("responds with a single todo", async () =>
-        request(app)
+        await request(app)
             .put(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
             .send({
@@ -158,11 +165,12 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body.task.isDone).toBe(true);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
+                expect(response.body.task).toHaveProperty("assignedAt");
                 expect(response.body).toHaveProperty("message");
                 expect(response.body.message).toBe(`task ${id} was updated successfully`);
             }));
     it("responds with a single todo", async () =>
-        request(app)
+        await request(app)
             .put(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
             .send({
@@ -181,6 +189,7 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body.task.isDone).toBe(false);
                 expect(response.body.task).toHaveProperty("createdAt");
                 expect(response.body.task).toHaveProperty("updatedAt");
+                expect(response.body.task).toHaveProperty("assignedAt");
                 expect(response.body).toHaveProperty("message");
                 expect(response.body.message).toBe(`task ${id} was updated successfully`);
             }));
