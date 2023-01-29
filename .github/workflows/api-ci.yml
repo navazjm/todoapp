@@ -21,7 +21,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
-                  cache-dependency-path: todoapp-api/package-lock.json
+                  cache-dependency-path: ./todoapp-api/package-lock.json
             - name: Run API Linter
               working-directory: ./todoapp-api
               run: npm run lint

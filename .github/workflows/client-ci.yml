@@ -14,6 +14,10 @@ jobs:
             matrix:
                 node-version: [16.x]
 
+        defaults:
+            run:
+                working-directory: ./todoapp-client/
+
         steps:
             - uses: actions/checkout@v3
             - name: Use Node.js ${{ matrix.node-version }}
@@ -21,10 +25,9 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
-                  cache-dependency-path: todoapp-client/package-lock.json
+                  cache-dependency-path: ./todoapp-client/package-lock.json
+            - run: npm ci
             - name: Run Client Linter
-              working-directory: ./todoapp-client
               run: npm run lint
             - name: Run Client Formatter
-              working-directory: ./todoapp-client
               run: npm run format
