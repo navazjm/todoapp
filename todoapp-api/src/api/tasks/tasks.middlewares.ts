@@ -23,7 +23,6 @@ export function notFound(err: Error, _: Request, res: Response, next: NextFuncti
             res.status(404);
             throw new Error(`Task '${id}' not found`);
         }
-        throw new Error(`Task error`);
     }
     next();
 }
