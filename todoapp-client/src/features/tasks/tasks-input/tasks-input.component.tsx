@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useAlert } from "../../../components/alert/alert.hooks";
 import { IAlert } from "../../../components/alert/alert.types";
@@ -47,24 +47,30 @@ export default function TasksInput() {
     return (
         <form onSubmit={(evt: React.SyntheticEvent) => createNewTask(evt)} className="tasks-input-form">
             <FormControl sx={{ m: 1, width: { xs: "100%", md: "60%" }, margin: 0 }} variant="outlined">
-                <InputLabel>Create task</InputLabel>
-                <OutlinedInput
+                <TextField
                     label="Create task"
                     id="newTaskContentInput"
+                    color="primary"
                     value={taskContent}
                     onChange={(evt) => setTaskContent(evt.target.value)}
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label="create new task"
-                                onClick={createNewTask}
-                                edge="end"
-                                disabled={taskContent === ""}
-                            >
-                                <AddIcon />
-                            </IconButton>
-                        </InputAdornment>
-                    }
+                    InputProps={{
+                        endAdornment: (
+                            <Tooltip title="Submit">
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="create new task"
+                                        onClick={createNewTask}
+                                        edge="end"
+                                        disabled={taskContent === ""}
+                                        color="primary"
+                                    >
+                                        <AddIcon />
+                                    </IconButton>
+                                </InputAdornment>
+                            </Tooltip>
+                        )
+                    }}
+                    focused
                 />
             </FormControl>
             <FormControl>
