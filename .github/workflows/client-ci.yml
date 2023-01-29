@@ -1,4 +1,4 @@
-name: Formatter
+name: TodoApp Client CI
 
 on:
     push:
@@ -21,13 +21,10 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
-            - run: npm ci
-              working-directory: ./todoapp-api
-            - name: Run API formatter
-              working-directory: ./todoapp-api
-              run: npm run format
-            - run: npm ci
+                  cache-dependency-path: todoapp-client/package-lock.json
+            - name: Run Client Linter
               working-directory: ./todoapp-client
-            - name: Run Client formatter
+              run: npm run lint
+            - name: Run Client Formatter
               working-directory: ./todoapp-client
               run: npm run format
