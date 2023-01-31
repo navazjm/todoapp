@@ -7,6 +7,10 @@ import { NotFound } from "./pages/not-found";
 import { Layout } from "./layouts/layout.component";
 import { AlertProvider } from "./components/alert/alert.context";
 import BuildProviderTree from "./utils/buildProviderTree";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 import "./main.css";
 
 const Providers = BuildProviderTree([TasksProvider, AlertProvider]);
