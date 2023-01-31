@@ -7,7 +7,7 @@ on:
         branches: [main]
 
 jobs:
-    lint:
+    lint_format:
         runs-on: ubuntu-latest
 
         strategy:
@@ -18,7 +18,7 @@ jobs:
             run:
                 working-directory: ./todoapp-api/
 
-        name: Test changed-files
+        name: TodoApp API CI
         steps:
             - uses: actions/checkout@v3
               with:
