@@ -37,6 +37,8 @@ jobs:
                 node-version: ${{ matrix.node-version }}
                 cache: "npm"
                 cache-dependency-path: ./todoapp-api/package-lock.json
-              run: npm ci
-              run: npm run lint
-              run: npm run format
+                - run: npm ci
+                - name: Run API Linter
+                run: npm run lint
+                - name: Run API Formatter
+                run: npm run format
