@@ -33,12 +33,10 @@ jobs:
             - name: Run step if any file(s) in the todoapp-api folder change
               if: steps.changed-files-specific.outputs.any_changed == 'true'
               uses: actions/setup-node@v3
-                with:
-                    node-version: ${{ matrix.node-version }}
-                    cache: "npm"
-                    cache-dependency-path: ./todoapp-api/package-lock.json
-                - run: npm ci
-                - name: Run API Linter
-                run: npm run lint
-                - name: Run API Formatter
-                run: npm run format
+              with:
+                node-version: ${{ matrix.node-version }}
+                cache: "npm"
+                cache-dependency-path: ./todoapp-api/package-lock.json
+              run: npm ci
+              run: npm run lint
+              run: npm run format
