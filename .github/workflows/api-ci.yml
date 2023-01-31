@@ -39,30 +39,30 @@ jobs:
       done &lt; files.txt
 
 
-todoapp_api:
-    name: Job for 'todoapp-api' folder
-    needs: check
-    if: needs.check.outputs.run_job == 'true'
-        runs-on: ubuntu-latest
+    todoapp_api:
+        name: Job for 'todoapp-api' folder
+        needs: check
+        if: needs.check.outputs.run_job == 'true'
+            runs-on: ubuntu-latest
 
-        strategy:
-            matrix:
-                node-version: [16.x]
+            strategy:
+                matrix:
+                    node-version: [16.x]
 
-        defaults:
-            run:
-                working-directory: ./todoapp-api/
+            defaults:
+                run:
+                    working-directory: ./todoapp-api/
 
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: "npm"
-                  cache-dependency-path: ./todoapp-api/package-lock.json
-            - run: npm ci
-            - name: Run API Linter
-              run: npm run lint
-            - name: Run API Formatter
-              run: npm run format
+            steps:
+                - uses: actions/checkout@v3
+                - name: Use Node.js ${{ matrix.node-version }}
+                uses: actions/setup-node@v3
+                with:
+                    node-version: ${{ matrix.node-version }}
+                    cache: "npm"
+                    cache-dependency-path: ./todoapp-api/package-lock.json
+                - run: npm ci
+                - name: Run API Linter
+                run: npm run lint
+                - name: Run API Formatter
+                run: npm run format

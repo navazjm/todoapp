@@ -7,7 +7,39 @@ on:
         branches: [main]
 
 jobs:
-    pr:
+  check:
+    name: Check files
+    outputs:
+      run_job: ${{ steps.check_files.outputs.run_job }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+  - name: check modified files
+    id: check_files
+    run: |
+      echo "=============== list modified files ==============="
+      git diff --name-only HEAD^ HEAD
+      
+      echo "========== check paths of modified files =========="
+      git diff --name-only HEAD^ HEAD &gt; files.txt
+      while IFS= read -r file
+      do
+        echo $file
+        if [[ $file != todoapp-client/* ]]; then
+          echo "This modified file is not under the 'todoapp-client' folder."
+          echo "::set-output name=run_job::false"
+          break
+        else
+          echo "::set-output name=run_job::true"
+        fi
+      done &lt; files.txt
+
+
+    todoapp_client:
         runs-on: ubuntu-latest
 
         strategy:
