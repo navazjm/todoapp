@@ -19,29 +19,29 @@ jobs:
                 working-directory: ./todoapp-api/
 
         name: Test changed-files
-            steps:
-            - uses: actions/checkout@v3
-                with:
-                fetch-depth: "2"
-
-    - name: Get changed files in the todoapp-api folder
-        id: changed-files-specific
-        uses: tj-actions/changed-files@v35
-        with:
-          files: todoapp-api/**
-
-    - name: Run step if any file(s) in the todoapp-api folder change
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
         steps:
             - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: "npm"
-                  cache-dependency-path: ./todoapp-api/package-lock.json
-            - run: npm ci
-            - name: Run API Linter
-              run: npm run lint
-            - name: Run API Formatter
-              run: npm run format
+            with:
+                fetch-depth: "2"
+
+            - name: Get changed files in the todoapp-api folder
+                id: changed-files-specific
+                uses: tj-actions/changed-files@v35
+                with:
+                files: todoapp-api/**
+
+            - name: Run step if any file(s) in the todoapp-api folder change
+                if: steps.changed-files-specific.outputs.any_changed == 'true'
+                steps:
+                    - uses: actions/checkout@v3
+                    - name: Use Node.js ${{ matrix.node-version }}
+                    uses: actions/setup-node@v3
+                    with:
+                        node-version: ${{ matrix.node-version }}
+                        cache: "npm"
+                        cache-dependency-path: ./todoapp-api/package-lock.json
+                    - run: npm ci
+                    - name: Run API Linter
+                    run: npm run lint
+                    - name: Run API Formatter
+                    run: npm run format
