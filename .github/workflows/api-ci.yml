@@ -49,3 +49,7 @@ jobs:
             - name: Run API Formatter
               if: steps.changed-files-specific.outputs.any_changed == 'true'
               run: npm run format
+
+            - name: Run API Test
+              if: steps.changed-files-specific.outputs.any_changed == 'true'
+              run: npm run test
