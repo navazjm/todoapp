@@ -6,8 +6,11 @@ on:
     pull_request:
         branches: [main]
 
+env:
+    DATABASE_URL: ${{ vars.DATABASE_URL }}
+
 jobs:
-    lint_format:
+    dev:
         runs-on: ubuntu-latest
 
         strategy:
