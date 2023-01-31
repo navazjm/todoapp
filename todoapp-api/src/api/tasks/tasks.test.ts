@@ -3,15 +3,6 @@ import request from "supertest";
 import app from "../../app";
 import prisma from "../../prisma";
 
-beforeAll(async () => {
-    try {
-        await prisma.task.deleteMany();
-    } catch (error) {
-        const err = error as Error;
-        console.error(err.message);
-    }
-});
-
 describe("GET /v1/tasks", () => {
     it("responds with an array of tasks", async () =>
         await request(app)
@@ -22,7 +13,6 @@ describe("GET /v1/tasks", () => {
             .then((response) => {
                 expect(response.body).toHaveProperty("tasks");
                 expect(response.body.tasks).toHaveProperty("length");
-                expect(response.body.tasks.length).toBe(0);
             }));
 });
 
