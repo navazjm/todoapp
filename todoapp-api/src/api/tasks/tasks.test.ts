@@ -6,7 +6,10 @@ import prisma from "../../prisma";
 beforeAll(async () => {
     try {
         await prisma.task.deleteMany();
-    } catch (error) {}
+    } catch (error) {
+        const err = error as Error;
+        console.error(err.message);
+    }
 });
 
 describe("GET /v1/tasks", () => {
