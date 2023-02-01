@@ -1,5 +1,7 @@
 ### dotenv ###
 .env
+.env.test
+.env.prod
 
 ### Linux ###
 *~
