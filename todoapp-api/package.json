@@ -13,6 +13,7 @@
         "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
         "seed": "npx prisma db seed",
         "seed:prod": "npx dotenv-cli -e .env.prod npx prisma db seed",
+        "migrate": "npx prisma db push",
         "migrate:prod": "npx dotenv-cli -e .env.prod npx prisma db push"
     },
     "prisma": {
