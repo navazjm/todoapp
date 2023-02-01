@@ -1,7 +1,5 @@
 import request from "supertest";
-
 import app from "../../app";
-import prisma from "../../prisma";
 
 describe("GET /v1/tasks", () => {
     it("responds with an array of tasks", async () =>
