@@ -6,7 +6,7 @@
     "scripts": {
         "start": "ts-node src/index.ts",
         "start:prod": "node dist/index.js",
-        "dev": "nodemon src/index.ts",
+        "dev": "npx dotenv-cli -e .env.dev nodemon src/index.ts",
         "build": "npx dotenv-cli -e .env.prod tsc",
         "lint": "eslint src",
         "lint:fix": "eslint --fix src",

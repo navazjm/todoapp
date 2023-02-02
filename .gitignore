@@ -2,6 +2,7 @@
 .env
 .env.test
 .env.prod
+.env.dev
 
 docker-data/
 
