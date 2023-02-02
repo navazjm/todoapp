@@ -1,7 +1,7 @@
 import { Props } from "./types";
 
 // TODO: add type annotations
-export default function BuildProviderTree(providers) {
+export default function BuildProviderTree(providers: any): any {
     if (providers.length === 1) {
         return providers[0];
     }

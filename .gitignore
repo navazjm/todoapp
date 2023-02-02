@@ -3,6 +3,8 @@
 .env.test
 .env.prod
 
+docker-data/
+
 ### Linux ###
 *~
 

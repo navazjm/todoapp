@@ -3,13 +3,13 @@ import { IMessageResponse } from "../../utils/types";
 import { ITask, ITaskResp } from "./tasks.types";
 
 export async function getAll(): Promise<ITask[]> {
-    const resp = await axios.get("/v1/tasks");
+    const resp = await axios.get("/tasks");
     const tasks: ITask[] = resp.data.tasks;
     return tasks;
 }
 
 export async function createOne(taskContent: string, assignedDate: string): Promise<ITaskResp> {
-    const resp = await axios.post("/v1/tasks", {
+    const resp = await axios.post("/tasks", {
         content: taskContent,
         assignedAt: assignedDate
     });
@@ -18,7 +18,7 @@ export async function createOne(taskContent: string, assignedDate: string): Prom
 }
 
 export async function updateOneByID(taskID: number, content: string, isDone: boolean): Promise<ITaskResp> {
-    const resp = await axios.put(`/v1/tasks/${taskID}`, {
+    const resp = await axios.put(`/tasks/${taskID}`, {
         content: content,
         isDone: isDone
     });
@@ -27,7 +27,7 @@ export async function updateOneByID(taskID: number, content: string, isDone: boo
 }
 
 export async function deleteOneByID(taskID: number): Promise<IMessageResponse> {
-    const resp = await axios.delete(`/v1/tasks/${taskID}`);
+    const resp = await axios.delete(`/tasks/${taskID}`);
     const messageResp: IMessageResponse = resp.data;
     return messageResp;
 }

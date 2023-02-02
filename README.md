@@ -14,7 +14,7 @@
 
 Used this project to learn the basics of NodeJS, Express with TypeScript, and Prisma.
 
-## Run Project Locally
+## Run From Source Code
 
 ### Clone the repo locally
 
@@ -24,7 +24,48 @@ Used this project to learn the basics of NodeJS, Express with TypeScript, and Pr
 git clone https://github.com/navazjm/todoapp && cd todoapp
 ```
 
-### Run the client app
+### Run using Docker
+
+1. Change directory to server
+
+```sh
+cd path/to/todoapp/todoapp-api
+```
+
+2. copy .env.sample to .env
+
+```sh
+cp .env.sample .env
+```
+
+3. Change directory back to project root
+
+```sh
+cd ..
+```
+
+4. Docker compose up \
+   _Note: navigate to http://localhost:8888_
+
+```sh
+docker-compose --env-file=./todoapp-api/.env up -d
+```
+
+5. Stop the system
+
+```sh
+docker-compose down
+```
+
+6. If you need to stop and remove all containers, networks, and all images used by any service in docker-compose.yml file, use the command
+
+```sh
+docker-compose down --rmi all
+```
+
+### Run the project locally
+
+#### Run the client app
 
 1. [Install NodeJS 16.15 or later](https://nodejs.org/en/)
 
@@ -47,7 +88,7 @@ npm i
 npm run dev
 ```
 
-### Run the backend api server
+#### Run the backend api server
 
 1. [Install PosgreSQL](https://www.postgresql.org/download/)
 
@@ -57,8 +98,7 @@ npm run dev
 cd path/to/todoapp/todoapp-api
 ```
 
-3. copy .env.sample to .env \
-   _Note: Need to update DATABASE_URL in .env_
+3. copy .env.sample to .env
 
 ```sh
 cp .env.sample .env
