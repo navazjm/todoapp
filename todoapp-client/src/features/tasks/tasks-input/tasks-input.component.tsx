@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FormControl, IconButton, InputAdornment, TextField, Tooltip } from "@mui/material";
+import filter from "leo-profanity";
+import { FormControl, FormHelperText, IconButton, InputAdornment, TextField, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useAlert } from "../../../components/alert/alert.hooks";
 import { IAlert } from "../../../components/alert/alert.types";
@@ -10,8 +11,16 @@ import "./tasks-input.component.css";
 
 export default function TasksInput() {
     const [taskContent, setTaskContent] = useState("");
+    const [taskContentError, setTaskContentError] = useState({
+        containsError: false,
+        message: ""
+    });
     const tasksCtx = useTasks();
     const alertCtx = useAlert();
+
+    function onChangeTaskContent(event: React.ChangeEvent<HTMLInputElement>): void {
+        setTaskContent(event.target.value);
+    }
 
     function onSetDateFilterValue(event: React.ChangeEvent<HTMLInputElement>): void {
         // change date value from "yyyy-mm-dd" to "yyyy/mm/dd"
@@ -21,6 +30,26 @@ export default function TasksInput() {
 
     async function createNewTask(event: React.SyntheticEvent) {
         event.preventDefault();
+
+        if (taskContent === "") {
+            setTaskContentError({
+                containsError: true,
+                message: "Task content is required"
+            });
+            return;
+        }
+
+        if (filter.check(taskContent)) {
+            setTaskContentError({
+                containsError: true,
+                message: "Watch your profanity"
+            });
+            return;
+        }
+
+        console.log(filter.check(taskContent));
+
+        setTaskContentError({ containsError: false, message: "" });
 
         try {
             const assignedDate = tasksCtx?.filterByDateValue.toISOString() as string;
@@ -53,7 +82,7 @@ export default function TasksInput() {
                     id="newTaskContentInput"
                     color="primary"
                     value={taskContent}
-                    onChange={(evt) => setTaskContent(evt.target.value)}
+                    onChange={onChangeTaskContent}
                     InputProps={{
                         endAdornment: (
                             <Tooltip title="Submit">
@@ -72,7 +101,11 @@ export default function TasksInput() {
                         )
                     }}
                     focused
+                    error={taskContentError.containsError}
                 />
+                {taskContentError && (
+                    <FormHelperText sx={{ marginLeft: 0, color: "red" }}>{taskContentError.message}</FormHelperText>
+                )}
             </FormControl>
             <FormControl>
                 <TextField
