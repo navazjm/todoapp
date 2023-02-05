@@ -1,4 +1,4 @@
-import { Card, CardContent, Container, Divider } from "@mui/material";
+import { Box, Card, CardContent, Container, Divider } from "@mui/material";
 import ProgressComponent from "../../components/progress/progress.component";
 import { useProgress } from "../../components/progress/progress.hooks";
 import TasksFilter from "./tasks-filter/tasks-filter.component";
@@ -22,7 +22,9 @@ export default function TasksComponent() {
                 <Card sx={{ minWidth: 350, width: 600, minHeight: 600, maxHeight: 600, overflowY: "auto" }}>
                     <CardContent sx={{ paddingTop: 0, position: "relative" }}>
                         {progressCtx?.isLoading ? (
-                            <ProgressComponent />
+                            <Box sx={{ paddingTop: "1rem" }}>
+                                <ProgressComponent />
+                            </Box>
                         ) : (
                             <>
                                 <div className="tasks-card-content-header">
