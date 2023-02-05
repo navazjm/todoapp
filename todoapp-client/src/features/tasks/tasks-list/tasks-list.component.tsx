@@ -13,7 +13,7 @@ import TasksListItem from "./tasks-list-item/tasks-list-item.component";
 import * as TodoAppAPI from "../tasks.api";
 import "./tasks-list.component.css";
 
-export default function TasksList() {
+export default function TasksListComponent() {
     const progressCtx = useProgress();
     const tasksCtx = useTasks();
     const [filteredTasks, setFilteredTasks] = useState<ITask[] | undefined>([]);

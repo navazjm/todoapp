@@ -17,7 +17,7 @@ import { ITasksListBaseProps } from "../../tasks-list.types";
 import * as TodoAppAPI from "../../../tasks.api";
 import "./delete-task.component.css";
 
-export default function DeleteTask({ task }: ITasksListBaseProps) {
+export default function DeleteTaskComponent({ task }: ITasksListBaseProps) {
     const alertCtx = useAlert();
     const progressCtx = useProgress();
     const tasksCtx = useTasks();

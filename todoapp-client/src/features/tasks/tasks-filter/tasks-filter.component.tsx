@@ -22,7 +22,7 @@ import {
 } from "../tasks.types";
 import "./tasks-filter.component.css";
 
-export default function TasksFilter() {
+export default function TasksFilterComponent() {
     const tasksCtx = useTasks();
 
     function onSelectFilterByDoneValue(event: SelectChangeEvent) {
