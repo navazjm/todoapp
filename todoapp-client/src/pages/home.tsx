@@ -1,5 +1,5 @@
 import TasksComponent from "../features/tasks/tasks.component";
 
-export const HomePage = () => {
+export default function HomePage() {
     return <TasksComponent />;
-};
+}
