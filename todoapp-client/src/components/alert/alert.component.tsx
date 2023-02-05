@@ -1,8 +1,8 @@
 import { Alert as MatAlert, Snackbar } from "@mui/material";
 import { useAlert } from "./alert.hooks";
-import "./alert.styles.css";
+import "./alert.component.css";
 
-export default function Alert() {
+export default function AlertComponent() {
     const alertCtx = useAlert();
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {

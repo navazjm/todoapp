@@ -6,8 +6,8 @@ import { useAlert } from "../../../../components/alert/alert.hooks";
 import { useProgress } from "../../../../components/progress/progress.hooks";
 import { useTasks } from "../../tasks.hooks";
 import { ITasksListBaseProps } from "../tasks-list.types";
-import EditTaskContentInput from "./tasks-list-item-edit-task-content/tasks-list-edit-task-content.component";
-import DeleteTask from "./tasks-list-item-delete-task/delete-task.component";
+import EditTaskContentInputComponent from "./tasks-list-item-edit-task-content/tasks-list-edit-task-content.component";
+import DeleteTaskComponent from "./tasks-list-item-delete-task/delete-task.component";
 import * as TodoAppAPI from "../../tasks.api";
 import "./tasks-list-item.component.css";
 
@@ -88,10 +88,10 @@ export default function TasksListItem({ task }: ITasksListBaseProps) {
                         {task.content}
                     </Typography>
                 ) : (
-                    <EditTaskContentInput task={task} updateTask={updateTask} />
+                    <EditTaskContentInputComponent task={task} updateTask={updateTask} />
                 )}
             </div>
-            <DeleteTask task={task} />
+            <DeleteTaskComponent task={task} />
         </div>
     );
 }

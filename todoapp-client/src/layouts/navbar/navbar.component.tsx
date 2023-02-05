@@ -3,7 +3,7 @@ import { Avatar, Box, AppBar, Toolbar, Typography, Container } from "@mui/materi
 import TodoappLogo from "../../assets/todoapp-logo.png";
 import "./navbar.component.css";
 
-export default function Navbar() {
+export default function NavbarComponent() {
     return (
         <AppBar position="fixed" color="transparent">
             <Container maxWidth="xl">

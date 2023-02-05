@@ -1,7 +1,7 @@
 import { useState } from "react";
-import filter from "leo-profanity";
 import { FormControl, FormHelperText, IconButton, InputAdornment, TextField, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import filter from "leo-profanity";
 import { useAlert } from "../../../components/alert/alert.hooks";
 import { IAlert } from "../../../components/alert/alert.types";
 import { useProgress } from "../../../components/progress/progress.hooks";
@@ -10,7 +10,7 @@ import { ITask } from "../tasks.types";
 import * as TodoAppAPI from "../tasks.api";
 import "./tasks-input.component.css";
 
-export default function TasksInput() {
+export default function TasksInputComponent() {
     const [taskContent, setTaskContent] = useState("");
     const [taskContentError, setTaskContentError] = useState({
         containsError: false,

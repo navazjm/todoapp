@@ -1,9 +1,9 @@
 import { Box, Card, CardContent, Container, Divider } from "@mui/material";
-import ProgressComponent from "../../components/progress/progress.component";
 import { useProgress } from "../../components/progress/progress.hooks";
-import TasksFilter from "./tasks-filter/tasks-filter.component";
-import TasksInput from "./tasks-input/tasks-input.component";
-import TasksList from "./tasks-list/tasks-list.component";
+import ProgressComponent from "../../components/progress/progress.component";
+import TasksFilterComponent from "./tasks-filter/tasks-filter.component";
+import TasksInputComponent from "./tasks-input/tasks-input.component";
+import TasksListComponent from "./tasks-list/tasks-list.component";
 import "./tasks.component.css";
 
 export default function TasksComponent() {
@@ -28,11 +28,11 @@ export default function TasksComponent() {
                         ) : (
                             <>
                                 <div className="tasks-card-content-header">
-                                    <TasksInput />
-                                    <TasksFilter />
+                                    <TasksInputComponent />
+                                    <TasksFilterComponent />
                                 </div>
                                 <Divider />
-                                <TasksList />
+                                <TasksListComponent />
                             </>
                         )}
                     </CardContent>

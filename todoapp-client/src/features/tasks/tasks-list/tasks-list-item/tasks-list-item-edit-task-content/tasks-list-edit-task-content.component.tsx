@@ -5,7 +5,7 @@ import "./tasks-list-edit-task-content.component.css";
 interface IEditTaskContentInputProps extends ITasksListBaseProps {
     updateTask(taskID: number, taskContent: string, taskIsDone: boolean): void;
 }
-export default function EditTaskContentInput({ task, updateTask }: IEditTaskContentInputProps) {
+export default function EditTaskContentInputComponent({ task, updateTask }: IEditTaskContentInputProps) {
     const [taskContent, setTaskContent] = useState(task.content);
 
     function onChangeTaskContent(evt: ChangeEvent<HTMLInputElement>) {
