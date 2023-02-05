@@ -68,7 +68,9 @@ export default function TasksListComponent() {
                 ))
             ) : (
                 <Typography sx={{ paddingTop: "1.5rem", fontStyle: "italic", fontWeight: 200, opacity: "0.5" }}>
-                    Add a new task...
+                    {tasksCtx?.filterByDoneValue === "all" && "Add a new task"}
+                    {tasksCtx?.filterByDoneValue === "yes" && "No tasks have been completed"}
+                    {tasksCtx?.filterByDoneValue === "no" && "All tasks have been completed"}
                 </Typography>
             )}
         </>
