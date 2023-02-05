@@ -3,6 +3,7 @@ import { Checkbox, Typography } from "@mui/material";
 import { ITask } from "../../tasks.types";
 import { IAlert } from "../../../../components/alert/alert.types";
 import { useAlert } from "../../../../components/alert/alert.hooks";
+import { useProgress } from "../../../../components/progress/progress.hooks";
 import { useTasks } from "../../tasks.hooks";
 import { ITasksListBaseProps } from "../tasks-list.types";
 import EditTaskContentInput from "./tasks-list-item-edit-task-content/tasks-list-edit-task-content.component";
@@ -12,6 +13,7 @@ import "./tasks-list-item.component.css";
 
 export default function TasksListItem({ task }: ITasksListBaseProps) {
     const alertCtx = useAlert();
+    const progressCtx = useProgress();
     const tasksCtx = useTasks();
 
     async function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>, taskToUpdate: ITask) {
@@ -29,6 +31,7 @@ export default function TasksListItem({ task }: ITasksListBaseProps) {
     }
 
     async function updateTask(taskID: number, taskContent: string, taskIsDone: boolean) {
+        progressCtx?.setIsLoading(true);
         try {
             const resp = await TodoAppAPI.updateOneByID(taskID, taskContent, taskIsDone);
 
@@ -58,6 +61,7 @@ export default function TasksListItem({ task }: ITasksListBaseProps) {
             };
             alertCtx?.setAlert(newAlert);
         }
+        progressCtx?.setIsLoading(false);
     }
 
     return (

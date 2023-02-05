@@ -11,6 +11,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IAlert } from "../../../../../components/alert/alert.types";
 import { useAlert } from "../../../../../components/alert/alert.hooks";
+import { useProgress } from "../../../../../components/progress/progress.hooks";
 import { useTasks } from "../../../tasks.hooks";
 import { ITasksListBaseProps } from "../../tasks-list.types";
 import * as TodoAppAPI from "../../../tasks.api";
@@ -18,6 +19,7 @@ import "./delete-task.component.css";
 
 export default function DeleteTask({ task }: ITasksListBaseProps) {
     const alertCtx = useAlert();
+    const progressCtx = useProgress();
     const tasksCtx = useTasks();
 
     const [open, setOpen] = useState(false);
@@ -31,6 +33,7 @@ export default function DeleteTask({ task }: ITasksListBaseProps) {
     };
 
     async function onDeleteTask(taskID: number) {
+        progressCtx?.setIsLoading(true);
         try {
             const resp = await TodoAppAPI.deleteOneByID(taskID);
             const newAlert: IAlert = {
@@ -49,6 +52,7 @@ export default function DeleteTask({ task }: ITasksListBaseProps) {
             };
             alertCtx?.setAlert(newAlert);
         }
+        progressCtx?.setIsLoading(false);
     }
 
     return (
