@@ -1,6 +1,10 @@
 import { createContext, useState } from "react";
 import { Props } from "../../utils/types";
-import { IProgressContext } from "./progress.types";
+
+export interface IProgressContext {
+    isLoading: boolean;
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const ProgressContext = createContext<IProgressContext | null>(null);
 
