@@ -3,10 +3,10 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import { TasksProvider } from "./features/tasks/tasks.context";
 import { HomePage } from "./pages/home";
-import { NotFound } from "./pages/not-found";
 import { Layout } from "./layouts/layout.component";
 import { AlertProvider } from "./components/alert/alert.context";
 import { ProgressProvider } from "./components/progress/progress.context";
+import NotFoundPage from "./pages/not-found";
 import BuildProviderTree from "./utils/buildProviderTree";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -29,7 +29,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                         }
                     >
                         <Route path="/" element={<HomePage />} />
-                        <Route element={<NotFound />} path="*" />
+                        <Route element={<NotFoundPage />} path="*" />
                     </Route>
                 </Routes>
             </BrowserRouter>
