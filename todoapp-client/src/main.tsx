@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import { TasksProvider } from "./features/tasks/tasks.context";
-import { Home } from "./pages/home";
+import { HomePage } from "./pages/home";
 import { NotFound } from "./pages/not-found";
 import { Layout } from "./layouts/layout.component";
 import { AlertProvider } from "./components/alert/alert.context";
@@ -28,7 +28,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                             </Layout>
                         }
                     >
-                        <Route path="/" element={<Home />} />
+                        <Route path="/" element={<HomePage />} />
                         <Route element={<NotFound />} path="*" />
                     </Route>
                 </Routes>
