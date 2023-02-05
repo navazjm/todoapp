@@ -4,6 +4,7 @@ import { FormControl, FormHelperText, IconButton, InputAdornment, TextField, Too
 import AddIcon from "@mui/icons-material/Add";
 import { useAlert } from "../../../components/alert/alert.hooks";
 import { IAlert } from "../../../components/alert/alert.types";
+import { useProgress } from "../../../components/progress/progress.hooks";
 import { useTasks } from "../tasks.hooks";
 import { ITask } from "../tasks.types";
 import * as TodoAppAPI from "../tasks.api";
@@ -17,6 +18,7 @@ export default function TasksInput() {
     });
     const tasksCtx = useTasks();
     const alertCtx = useAlert();
+    const progressCtx = useProgress();
 
     function onChangeTaskContent(event: React.ChangeEvent<HTMLInputElement>): void {
         setTaskContent(event.target.value);
@@ -47,8 +49,7 @@ export default function TasksInput() {
             return;
         }
 
-        console.log(filter.check(taskContent));
-
+        progressCtx?.setIsLoading(true);
         setTaskContentError({ containsError: false, message: "" });
 
         try {
@@ -72,6 +73,7 @@ export default function TasksInput() {
         }
 
         setTaskContent("");
+        progressCtx?.setIsLoading(false);
     }
 
     return (

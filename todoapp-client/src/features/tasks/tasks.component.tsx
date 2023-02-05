@@ -1,10 +1,13 @@
-import { Card, CardContent, Container, Divider } from "@mui/material";
+import { Box, Card, CardContent, Container, Divider } from "@mui/material";
+import ProgressComponent from "../../components/progress/progress.component";
+import { useProgress } from "../../components/progress/progress.hooks";
 import TasksFilter from "./tasks-filter/tasks-filter.component";
 import TasksInput from "./tasks-input/tasks-input.component";
 import TasksList from "./tasks-list/tasks-list.component";
 import "./tasks.component.css";
 
 export default function TasksComponent() {
+    const progressCtx = useProgress();
     return (
         <>
             <Container
@@ -16,14 +19,22 @@ export default function TasksComponent() {
                     width: "100vw"
                 }}
             >
-                <Card sx={{ minWidth: 350, width: 600, maxHeight: 600, overflowY: "auto" }}>
-                    <CardContent sx={{ paddingTop: 0 }}>
-                        <div className="tasks-card-content-header">
-                            <TasksInput />
-                            <TasksFilter />
-                        </div>
-                        <Divider />
-                        <TasksList />
+                <Card sx={{ minWidth: 350, width: 600, minHeight: 600, maxHeight: 600, overflowY: "auto" }}>
+                    <CardContent sx={{ paddingTop: 0, position: "relative" }}>
+                        {progressCtx?.isLoading ? (
+                            <Box sx={{ paddingTop: "1rem" }}>
+                                <ProgressComponent />
+                            </Box>
+                        ) : (
+                            <>
+                                <div className="tasks-card-content-header">
+                                    <TasksInput />
+                                    <TasksFilter />
+                                </div>
+                                <Divider />
+                                <TasksList />
+                            </>
+                        )}
                     </CardContent>
                 </Card>
             </Container>

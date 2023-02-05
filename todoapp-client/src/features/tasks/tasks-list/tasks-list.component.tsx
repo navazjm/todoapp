@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Divider, Typography } from "@mui/material";
+import { useProgress } from "../../../components/progress/progress.hooks";
 import { useTasks } from "../tasks.hooks";
 import {
     ITask,
@@ -13,16 +14,19 @@ import * as TodoAppAPI from "../tasks.api";
 import "./tasks-list.component.css";
 
 export default function TasksList() {
+    const progressCtx = useProgress();
     const tasksCtx = useTasks();
     const [filteredTasks, setFilteredTasks] = useState<ITask[] | undefined>([]);
 
     useEffect(() => {
+        progressCtx?.setIsLoading(true);
         TodoAppAPI.getAll().then((tasks) => {
             tasks.sort((a, b) => {
                 return new Date(a.createdAt).valueOf() - new Date(b.createdAt).valueOf();
             });
             tasksCtx?.setTasks(tasks);
         });
+        progressCtx?.setIsLoading(false);
     }, []);
 
     useEffect(() => {
