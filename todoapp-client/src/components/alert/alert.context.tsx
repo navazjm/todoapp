@@ -1,6 +1,11 @@
 import { createContext, useState } from "react";
 import { Props } from "../../utils/types";
-import { IAlert, IAlertContext } from "./alert.types";
+import { IAlert } from "./alert.types";
+
+interface IAlertContext {
+    alert: IAlert;
+    setAlert: React.Dispatch<React.SetStateAction<IAlert>>;
+}
 
 const AlertContext = createContext<IAlertContext | null>(null);
 

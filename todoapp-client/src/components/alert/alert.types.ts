@@ -5,8 +5,3 @@ export interface IAlert {
     type: AlertColor | undefined;
     isOpen: boolean;
 }
-
-export interface IAlertContext {
-    alert: IAlert;
-    setAlert: React.Dispatch<React.SetStateAction<IAlert>>;
-}
