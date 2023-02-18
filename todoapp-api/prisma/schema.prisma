@@ -17,4 +17,16 @@ model Task {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   assignedAt  DateTime  @default(now())
+  author      User @relation(fields: [authorId], references: [id])
+  authorId    Int 
+}
+
+model User {
+  id          Int       @default(autoincrement()) @id
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  name        String
+  email       String    @unique
+  picture     String
+  tasks       Task[]
 }
