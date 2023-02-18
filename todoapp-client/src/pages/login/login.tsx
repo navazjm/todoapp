@@ -1,6 +1,6 @@
 import { Avatar, Box, Card, CardContent, CardActions, Typography } from "@mui/material";
-import { GoogleLogin } from "@react-oauth/google";
-import TodoappLogo from "../assets/todoapp-logo.png";
+import TodoappLogo from "../../assets/todoapp-logo.png";
+import GoogleLoginComponent from "./google-login/google-login.component";
 
 export default function LoginPage() {
     return (
@@ -24,14 +24,7 @@ export default function LoginPage() {
                 </Box>
             </CardContent>
             <CardActions sx={{ marginTop: "1rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <GoogleLogin
-                    onSuccess={(credentialResponse) => {
-                        console.log(credentialResponse);
-                    }}
-                    onError={() => {
-                        console.log("Login Failed");
-                    }}
-                />
+                <GoogleLoginComponent />
             </CardActions>
         </Card>
     );

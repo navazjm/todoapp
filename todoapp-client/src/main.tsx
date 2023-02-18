@@ -6,7 +6,7 @@ import { TasksProvider } from "./features/tasks/tasks.context";
 import { Layout } from "./layouts/layout.component";
 import { AlertProvider } from "./components/alert/alert.context";
 import { ProgressProvider } from "./components/progress/progress.context";
-import LoginPage from "./pages/login";
+import LoginPage from "./pages/login/login";
 import HomePage from "./pages/home";
 import NotFoundPage from "./pages/not-found";
 import BuildProviderTree from "./utils/buildProviderTree";
