@@ -1,4 +1,4 @@
-import { IMessageResponse } from "../../utils/types";
+import { IMessageResponse } from "../../common/types";
 
 export interface ITask {
     id: number;

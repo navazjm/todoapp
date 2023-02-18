@@ -1,8 +1,14 @@
 import axios from "../../../lib/axios";
+import { IMessageResponse } from "../../../common/types";
 
-export async function login(googleCredential: string): Promise<void> {
+export interface ITokenResponse extends IMessageResponse {
+    token: string;
+}
+
+export async function login(googleCredential: string): Promise<ITokenResponse> {
     const resp = await axios.post("/users/google/login", {
         token: googleCredential
     });
-    console.log(resp);
+    const tokenResp: ITokenResponse = resp.data;
+    return tokenResp;
 }

@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { Props } from "../../utils/types";
+import { Props } from "../../common/types";
 
 export interface IProgressContext {
     isLoading: boolean;

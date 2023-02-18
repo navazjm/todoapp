@@ -1,5 +1,5 @@
 import axios from "../../lib/axios";
-import { IMessageResponse } from "../../utils/types";
+import { IMessageResponse } from "../../common/types";
 import { ITask, ITaskResp } from "./tasks.types";
 
 export async function getAll(): Promise<ITask[]> {

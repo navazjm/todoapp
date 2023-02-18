@@ -1,5 +1,5 @@
 import { useAlert } from "../components/alert/alert.hooks";
-import { Props } from "../utils/types";
+import { Props } from "../common/types";
 import AlertComponent from "../components/alert/alert.component";
 import NavbarComponent from "./navbar/navbar.component";
 import "./layout.component.css";

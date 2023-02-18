@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { Props } from "../../utils/types";
+import { Props } from "../../common/types";
 import { IAlert } from "./alert.types";
 
 interface IAlertContext {
