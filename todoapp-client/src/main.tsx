@@ -10,7 +10,7 @@ import { ProgressProvider } from "./components/progress/progress.context";
 import LoginPage from "./pages/login/login";
 import HomePage from "./pages/home";
 import NotFoundPage from "./pages/not-found";
-import BuildProviderTree from "./common/buildProviderTree";
+import BuildProviderTree from "./common/utils/buildProviderTree";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";

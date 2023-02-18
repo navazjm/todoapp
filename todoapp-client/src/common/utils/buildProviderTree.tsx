@@ -1,4 +1,4 @@
-import { Props } from "./types";
+import { Props } from "../types";
 
 // TODO: add type annotations
 export default function BuildProviderTree(providers: any): any {
