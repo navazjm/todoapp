@@ -44,7 +44,7 @@ export async function googleLogin(req: Request, res: Response<UserResponse>, nex
             create: { name: name, email: email, picture: picture }
         });
 
-        const newToken = jwt.sign({ email: user.email }, JWT_SECRET, {
+        const newToken = jwt.sign({ user: user }, JWT_SECRET, {
             expiresIn: "1d"
         });
 
