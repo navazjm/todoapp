@@ -1,4 +1,4 @@
-import MessageResponse from "../../interfaces/responses/MessageResponse";
+import MessageResponse from "../../common/interfaces/responses/MessageResponse";
 
 export interface User {
     id: number;
