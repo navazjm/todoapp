@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import { ACCESS_TOKEN_SECRET } from "./common/constants";
 
-import ErrorResponse from "./common/interfaces/responses/ErrorResponse";
+import ErrorResponse from "./common/responses/ErrorResponse";
 
 export function notFound(req: Request, res: Response, next: NextFunction) {
     res.status(404);

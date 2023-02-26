@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from "express";
-import MessageResponse from "../../common/interfaces/responses/MessageResponse";
-import { TaskResponse, TasksResponse } from "../../common/interfaces/responses/TasksReponse";
+import MessageResponse from "../../common/responses/MessageResponse";
+import { TaskResponse, TasksResponse } from "../../common/responses/TasksReponse";
 import prisma from "../../prisma";
 
 export async function findAll(_: Request, res: Response<TasksResponse>, next: NextFunction) {
