@@ -1,12 +1,5 @@
+import { Task } from "@prisma/client";
 import MessageResponse from "./MessageResponse";
-
-interface Task {
-    id: number;
-    content: string;
-    isDone: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-}
 
 export interface TaskResponse extends MessageResponse {
     task: Task;

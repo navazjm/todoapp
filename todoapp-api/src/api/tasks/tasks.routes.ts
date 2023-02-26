@@ -1,8 +1,11 @@
 import express from "express";
 import * as TasksHandlers from "./tasks.handlers";
 import * as TasksMiddlewares from "./tasks.middlewares";
+import { verifyToken } from "../../middlewares";
 
 const router = express.Router();
+
+router.use(verifyToken);
 
 router.get("/", TasksHandlers.findAll);
 router.get("/:id", TasksMiddlewares.validateID, TasksHandlers.findOneByID, TasksMiddlewares.notFound);

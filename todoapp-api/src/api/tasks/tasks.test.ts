@@ -1,6 +1,8 @@
 import request from "supertest";
 import app from "../../app";
 
+// TODO: update tests to include auth token
+
 describe("GET /v1/tasks", () => {
     it("responds with an array of tasks", async () =>
         await request(app)
