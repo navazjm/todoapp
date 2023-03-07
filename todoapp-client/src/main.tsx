@@ -7,6 +7,7 @@ import { TasksProvider } from "./features/tasks/tasks.context";
 import { Layout } from "./layouts/layout.component";
 import { AlertProvider } from "./components/alert/alert.context";
 import { ProgressProvider } from "./components/progress/progress.context";
+import RequireAuth from "./components/require-auth/require-auth.component";
 import LoginPage from "./pages/login/login";
 import HomePage from "./pages/home";
 import NotFoundPage from "./pages/not-found";
@@ -28,8 +29,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                     <Routes>
                         <Route element={<LoginPage />} path="/login" />
 
-                        {/* if user is not login, go to login page */}
-
                         <Route
                             element={
                                 <Layout>
@@ -37,7 +36,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                                 </Layout>
                             }
                         >
-                            <Route path="/" element={<HomePage />} />
+                            <Route element={<RequireAuth />}>
+                                <Route path="/" element={<HomePage />} />
+                            </Route>
                             <Route element={<NotFoundPage />} path="*" />
                         </Route>
                     </Routes>

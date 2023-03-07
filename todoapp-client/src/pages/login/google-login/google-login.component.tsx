@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { useAuth } from "../../../common/auth/auth.hooks";
@@ -7,6 +7,8 @@ import * as TodoAppAPI from "./google-login.api";
 
 export default function GoogleLoginComponent() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || "/";
     const authCtx = useAuth();
 
     async function onSuccessGoogleLogin(credentialResp: CredentialResponse) {
@@ -32,7 +34,7 @@ export default function GoogleLoginComponent() {
         };
         authCtx?.setToken(token);
 
-        navigate("/");
+        navigate(from, { replace: true });
     }
 
     return (
