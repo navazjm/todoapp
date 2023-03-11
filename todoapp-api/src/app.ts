@@ -12,7 +12,8 @@ dotenv.config();
 const app = express();
 const corsOptions = {
     origin: process.env.CLIENT_ORIGIN || "*",
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 200,
+    credentials: true
 };
 
 app.use(morgan("dev"));
