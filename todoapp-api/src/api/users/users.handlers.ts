@@ -44,11 +44,11 @@ export async function googleLogin(req: Request, res: Response<UserResponse>, nex
         });
 
         const accessToken = jwt.sign({ user: user }, ACCESS_TOKEN_SECRET, {
-            expiresIn: "300s"
+            expiresIn: "5m"
         });
 
         const refreshToken = jwt.sign({ user: user }, REFRESH_TOKEN_SECRET, {
-            expiresIn: "1d"
+            expiresIn: "7d"
         });
 
         res.cookie("jwt", refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
@@ -80,7 +80,7 @@ export function getAccessToken(req: Request, res: Response<UserResponse>, next: 
             });
 
             const accessToken = jwt.sign({ user: user }, ACCESS_TOKEN_SECRET, {
-                expiresIn: "300s"
+                expiresIn: "5m"
             });
 
             res.status(201).json({
