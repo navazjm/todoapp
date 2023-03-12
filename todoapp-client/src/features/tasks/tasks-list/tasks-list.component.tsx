@@ -12,15 +12,17 @@ import {
 import TasksListItem from "./tasks-list-item/tasks-list-item.component";
 import * as TodoAppAPI from "../tasks.api";
 import "./tasks-list.component.css";
+import { useAxiosPrivate } from "../../../common/auth/auth.hooks";
 
 export default function TasksListComponent() {
+    const axiosPrivate = useAxiosPrivate();
     const progressCtx = useProgress();
     const tasksCtx = useTasks();
     const [filteredTasks, setFilteredTasks] = useState<ITask[] | undefined>([]);
 
     useEffect(() => {
         progressCtx?.setIsLoading(true);
-        TodoAppAPI.getAll().then((tasks) => {
+        TodoAppAPI.getAll(axiosPrivate).then((tasks) => {
             tasks.sort((a, b) => {
                 return new Date(a.createdAt).valueOf() - new Date(b.createdAt).valueOf();
             });

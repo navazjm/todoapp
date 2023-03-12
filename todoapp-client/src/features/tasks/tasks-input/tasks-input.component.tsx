@@ -9,6 +9,7 @@ import { useTasks } from "../tasks.hooks";
 import { ITask } from "../tasks.types";
 import * as TodoAppAPI from "../tasks.api";
 import "./tasks-input.component.css";
+import { useAxiosPrivate } from "../../../common/auth/auth.hooks";
 
 export default function TasksInputComponent() {
     const [taskContent, setTaskContent] = useState("");
@@ -19,6 +20,7 @@ export default function TasksInputComponent() {
     const tasksCtx = useTasks();
     const alertCtx = useAlert();
     const progressCtx = useProgress();
+    const axiosPrivate = useAxiosPrivate();
 
     function onChangeTaskContent(event: React.ChangeEvent<HTMLInputElement>): void {
         setTaskContent(event.target.value);
@@ -54,7 +56,7 @@ export default function TasksInputComponent() {
 
         try {
             const assignedDate = tasksCtx?.filterByDateValue.toISOString() as string;
-            const taskResp = await TodoAppAPI.createOne(taskContent, assignedDate);
+            const taskResp = await TodoAppAPI.createOne(axiosPrivate, taskContent, assignedDate);
 
             tasksCtx?.setTasks((tasks: ITask[]) => [...tasks, taskResp.task]);
             const newAlert: IAlert = {

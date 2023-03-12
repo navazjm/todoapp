@@ -16,11 +16,13 @@ import { useTasks } from "../../../tasks.hooks";
 import { ITasksListBaseProps } from "../../tasks-list.types";
 import * as TodoAppAPI from "../../../tasks.api";
 import "./delete-task.component.css";
+import { useAxiosPrivate } from "../../../../../common/auth/auth.hooks";
 
 export default function DeleteTaskComponent({ task }: ITasksListBaseProps) {
     const alertCtx = useAlert();
     const progressCtx = useProgress();
     const tasksCtx = useTasks();
+    const axiosPrivate = useAxiosPrivate();
 
     const [open, setOpen] = useState(false);
 
@@ -35,7 +37,7 @@ export default function DeleteTaskComponent({ task }: ITasksListBaseProps) {
     async function onDeleteTask(taskID: number) {
         progressCtx?.setIsLoading(true);
         try {
-            const resp = await TodoAppAPI.deleteOneByID(taskID);
+            const resp = await TodoAppAPI.deleteOneByID(axiosPrivate, taskID);
             const newAlert: IAlert = {
                 message: resp.message,
                 type: "success",

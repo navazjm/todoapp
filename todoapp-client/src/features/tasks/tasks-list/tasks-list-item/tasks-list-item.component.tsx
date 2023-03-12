@@ -10,11 +10,13 @@ import EditTaskContentInputComponent from "./tasks-list-item-edit-task-content/t
 import DeleteTaskComponent from "./tasks-list-item-delete-task/delete-task.component";
 import * as TodoAppAPI from "../../tasks.api";
 import "./tasks-list-item.component.css";
+import { useAxiosPrivate } from "../../../../common/auth/auth.hooks";
 
 export default function TasksListItem({ task }: ITasksListBaseProps) {
     const alertCtx = useAlert();
     const progressCtx = useProgress();
     const tasksCtx = useTasks();
+    const axiosPrivate = useAxiosPrivate();
 
     async function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>, taskToUpdate: ITask) {
         const isDoneChecked = event.target.checked;
@@ -33,7 +35,7 @@ export default function TasksListItem({ task }: ITasksListBaseProps) {
     async function updateTask(taskID: number, taskContent: string, taskIsDone: boolean) {
         progressCtx?.setIsLoading(true);
         try {
-            const resp = await TodoAppAPI.updateOneByID(taskID, taskContent, taskIsDone);
+            const resp = await TodoAppAPI.updateOneByID(axiosPrivate, taskID, taskContent, taskIsDone);
 
             const newAlert: IAlert = {
                 message: resp.message,
