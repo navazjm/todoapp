@@ -35,6 +35,10 @@ export async function googleLogin(req: Request, res: Response<UserResponse>, nex
 
         const email = verificationResp.email as string;
         const name = verificationResp.name as string;
+        /*
+         * NOTE: As of right now, we are hotlinking the picture from google.
+         * For any REAL projects, we should upload to AWS.
+         */
         const picture = verificationResp.picture as string;
 
         const user = await prisma.user.upsert({
