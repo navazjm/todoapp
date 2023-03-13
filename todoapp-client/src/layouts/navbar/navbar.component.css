@@ -2,3 +2,10 @@
     text-decoration: none;
     color: #000;
 }
+
+.navbar-navlink-logo {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+    align-items: center;
+}

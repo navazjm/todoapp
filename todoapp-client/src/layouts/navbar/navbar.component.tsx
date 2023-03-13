@@ -9,25 +9,25 @@ export default function NavbarComponent() {
             <Container maxWidth="xl">
                 <Toolbar>
                     <Box sx={{ flexGrow: 0 }}>
-                        <Avatar alt="Remy Sharp" src={TodoappLogo} />
+                        <NavLink to="/" className="navbar-navlink navbar-navlink-logo">
+                            <Avatar alt="Remy Sharp" src={TodoappLogo} />
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                component="span"
+                                sx={{
+                                    mr: 2,
+                                    display: { xs: "none", md: "flex" },
+                                    fontFamily: "monospace",
+                                    fontWeight: 700,
+                                    color: "inherit",
+                                    textDecoration: "none"
+                                }}
+                            >
+                                TodoApp
+                            </Typography>
+                        </NavLink>
                     </Box>
-                    <NavLink to="/" className="navbar-navlink">
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="span"
-                            sx={{
-                                mr: 2,
-                                display: { xs: "none", md: "flex" },
-                                fontFamily: "monospace",
-                                fontWeight: 700,
-                                color: "inherit",
-                                textDecoration: "none"
-                            }}
-                        >
-                            TodoApp
-                        </Typography>
-                    </NavLink>
                 </Toolbar>
             </Container>
         </AppBar>
