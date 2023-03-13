@@ -1,6 +1,6 @@
 import request from "supertest";
-import app from "../../app";
 import * as jwt from "jsonwebtoken";
+import app from "../../app";
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../../common/constants";
 
 describe("/v1/tasks", () => {
