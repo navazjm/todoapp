@@ -10,7 +10,7 @@
         "build": "npx dotenv-cli -e .env.prod tsc",
         "lint": "eslint src",
         "lint:fix": "eslint --fix src",
-        "test": "npx dotenv-cli -e .env.prod jest",
+        "test": "npx dotenv-cli -e .env.dev jest",
         "test:ci": "jest",
         "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
         "seed": "npx prisma db seed",

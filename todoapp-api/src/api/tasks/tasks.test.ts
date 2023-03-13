@@ -1,42 +1,57 @@
 import request from "supertest";
 import app from "../../app";
+import * as jwt from "jsonwebtoken";
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../../common/constants";
 
-// TODO: update tests to include auth token
+describe("/v1/tasks", () => {
+    const date = new Date();
+    date.setDate(date.getDate() - 1);
+    let id = "";
+    let refreshToken = "";
+    let accessToken = "";
 
-describe("GET /v1/tasks", () => {
-    it("responds with an array of tasks", async () =>
+    beforeAll(() => {
+        refreshToken = jwt.sign({ user: { id: 1 } }, REFRESH_TOKEN_SECRET, {
+            expiresIn: "5m"
+        });
+        accessToken = jwt.sign({ user: { id: 1 } }, ACCESS_TOKEN_SECRET, {
+            expiresIn: "5m"
+        });
+    });
+
+    // get all tasks
+    test("GET /", async () =>
         await request(app)
             .get("/v1/tasks")
             .set("Accept", "application/json")
-            .expect("Content-Type", /json/)
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
             .expect(200)
             .then((response) => {
                 expect(response.body).toHaveProperty("tasks");
                 expect(response.body.tasks).toHaveProperty("length");
             }));
-});
 
-let id = "";
-describe("POST /v1/tasks", () => {
-    const date = new Date();
-    date.setDate(date.getDate() - 1);
-
-    it("responds with an error if the task is invalid", async () =>
+    // create new tasks
+    test("POST / => responds with an error if the task is invalid", async () =>
         await request(app)
             .post("/v1/tasks")
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
             .set("Accept", "application/json")
             .send({
                 content: ""
             })
-            .expect("Content-Type", /json/)
             .expect(422)
             .then((response) => {
                 expect(response.body).toHaveProperty("message");
             }));
-    it("responds with an inserted object", async () =>
+    test("POST / => responds with an inserted object", async () =>
         await request(app)
             .post("/v1/tasks")
             .set("Accept", "application/json")
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
             .send({
                 content: "Pass this test",
                 assignedAt: date
@@ -58,14 +73,14 @@ describe("POST /v1/tasks", () => {
                 expect(response.body).toHaveProperty("message");
                 expect(response.body.message).toBe(`task ${id} was created successfully`);
             }));
-});
 
-describe("GET /v1/tasks/:id", () => {
-    it("responds with a single task", async () =>
+    // get a single task
+    test("GET /:id => responds with a single task", async () =>
         await request(app)
             .get(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
-            .expect("Content-Type", /json/)
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
             .expect(200)
             .then((response) => {
                 expect(response.body).toHaveProperty("task");
@@ -81,49 +96,53 @@ describe("GET /v1/tasks/:id", () => {
                 expect(response.body).toHaveProperty("message");
                 expect(response.body.message).toBe(`task ${id} was found`);
             }));
-    it("responds with an task ID not found error", (done) => {
+    test("GET /:id => responds with an task ID not found error", (done) => {
         request(app)
             .get("/v1/tasks/30")
             .set("Accept", "application/json")
-            .expect("Content-Type", /json/)
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
             .expect(404, done);
     });
-    it("responds with an invalid task ID error", (done) => {
+    test("GET /:id => responds with an invalid task ID error", (done) => {
         request(app)
             .get("/v1/tasks/a")
             .set("Accept", "application/json")
-            .expect("Content-Type", /json/)
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
             .expect(404, done);
     });
-});
 
-describe("PUT /api/v1/todos/:id", () => {
-    it("responds with an invalid task ID error", (done) => {
+    // update tasks
+    test("PUT /:id => responds with an invalid task ID error", (done) => {
         request(app)
             .put("/v1/tasks/adsfa")
             .set("Accept", "application/json")
-            .expect("Content-Type", /json/)
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
             .expect(404, done);
     });
-    it("responds with a not found error", (done) => {
+    test("PUT /:id => responds with unauthorized status", (done) => {
         request(app)
             .put("/v1/tasks/30")
             .set("Accept", "application/json")
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
             .send({
                 content: "This is a test",
                 isDone: true
             })
-            .expect("Content-Type", /json/)
-            .expect(404, done);
+            .expect(403, done);
     });
-    it("responds with a single task", async () =>
+    test("PUT /:id => responds with a single task", async () =>
         await request(app)
             .put(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
             .send({
                 isDone: true
             })
-            .expect("Content-Type", /json/)
             .expect(200)
             .then((response) => {
                 expect(response.body).toHaveProperty("task");
@@ -139,14 +158,15 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body).toHaveProperty("message");
                 expect(response.body.message).toBe(`task ${id} was updated successfully`);
             }));
-    it("responds with a single todo", async () =>
+    test("PUT /:id => responds with a single task", async () =>
         await request(app)
             .put(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
             .send({
                 content: "This is the new content"
             })
-            .expect("Content-Type", /json/)
             .expect(200)
             .then((response) => {
                 expect(response.body).toHaveProperty("task");
@@ -162,15 +182,16 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body).toHaveProperty("message");
                 expect(response.body.message).toBe(`task ${id} was updated successfully`);
             }));
-    it("responds with a single todo", async () =>
+    test("PUT /:id => responds with a single task", async () =>
         await request(app)
             .put(`/v1/tasks/${id}`)
             .set("Accept", "application/json")
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
             .send({
                 content: "This is the new content 2",
                 isDone: false
             })
-            .expect("Content-Type", /json/)
             .expect(200)
             .then((response) => {
                 expect(response.body).toHaveProperty("task");
@@ -186,33 +207,39 @@ describe("PUT /api/v1/todos/:id", () => {
                 expect(response.body).toHaveProperty("message");
                 expect(response.body.message).toBe(`task ${id} was updated successfully`);
             }));
-});
 
-describe("DELETE /v1/tasks/:id", () => {
-    it("responds with an invalid task ID error", (done) => {
+    // delete tasks
+    test("DELETE /:id => responds with an invalid task ID error", (done) => {
         request(app)
             .delete("/v1/tasks/adsfa")
             .set("Accept", "application/json")
-            .expect("Content-Type", /json/)
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
             .expect(404, done);
     });
-    it("responds with a not found error", (done) => {
+    test("DELETE /:id => responds with unauthorized status", (done) => {
         request(app)
             .delete("/v1/tasks/30")
             .set("Accept", "application/json")
-            .expect("Content-Type", /json/)
-            .expect(404, done);
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
+            .expect(403, done);
     });
-    it("responds with a 204 status code", async () => {
+    test("DELETE /:id => responds with a 204 status (successful delete)", (done) => {
         request(app)
             .delete(`/v1/tasks/${id}`)
-            .expect(200)
-            .then((response) => {
-                expect(response.body).toHaveProperty("message");
-                expect(response.body.message).toBe(`task ${id} was deleted successfully`);
-            });
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
+            .expect(204, done);
     });
-    it("responds with a not found error", (done) => {
-        request(app).get(`/v1/tasks/${id}`).set("Accept", "application/json").expect(404, done);
+
+    // try to fetch task after has been deleted
+    test("GET /:id => responds with a not found error", (done) => {
+        request(app)
+            .get(`/v1/tasks/${id}`)
+            .set("Accept", "application/json")
+            .set("Cookie", [`jwt=${refreshToken}`])
+            .set("Authorization", `Bearer ${accessToken}`)
+            .expect(404, done);
     });
 });

@@ -25,6 +25,7 @@ export async function findOneByID(_: Request, res: Response<TaskResponse>, next:
         });
         if (foundTask?.authorId !== user.id) {
             res.sendStatus(403);
+            return;
         }
         res.json({
             task: foundTask,
@@ -68,6 +69,7 @@ export async function updateOneByID(req: Request, res: Response<TaskResponse>, n
         });
         if (foundTask?.authorId !== user.id) {
             res.sendStatus(403);
+            return;
         }
         const updatedTask = await prisma.task.update({
             where: { id: id },
@@ -85,7 +87,7 @@ export async function updateOneByID(req: Request, res: Response<TaskResponse>, n
     }
 }
 
-export async function deleteOneByID(req: Request, res: Response<MessageResponse>, next: NextFunction) {
+export async function deleteOneByID(req: Request, res: Response, next: NextFunction) {
     try {
         const { id, user } = res.locals;
         const foundTask = await prisma.task.findFirst({
@@ -93,14 +95,13 @@ export async function deleteOneByID(req: Request, res: Response<MessageResponse>
         });
         if (foundTask?.authorId !== user.id) {
             res.sendStatus(403);
+            return;
         }
 
-        const deletedTask = await prisma.task.delete({
+        await prisma.task.delete({
             where: { id: id }
         });
-        res.status(200).json({
-            message: `task ${deletedTask.id} was deleted successfully`
-        });
+        res.sendStatus(204);
     } catch (err) {
         next(err);
     }
